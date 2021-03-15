@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Surf Flutter Cource App',
+      home: MySecondWidget(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -71,6 +81,7 @@ class MyFirstWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(contextType());
     buildCounter += 1;
     print('MyFirstWidget counter: $buildCounter');
 
@@ -80,6 +91,10 @@ class MyFirstWidget extends StatelessWidget {
       ),
     );
   }
+
+  // Type contextType() {
+  //   return context.runtimeType;
+  // }
 }
 
 class MySecondWidget extends StatefulWidget {
@@ -92,6 +107,7 @@ class _MySecondWidgetState extends State<MySecondWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(contextType());
     buildCounter += 1;
     print('MyFirstWidget counter: $buildCounter');
 
@@ -100,5 +116,9 @@ class _MySecondWidgetState extends State<MySecondWidget> {
         child: Text('Hello Stateful!'),
       ),
     );
+  }
+
+  Type contextType() {
+    return context.runtimeType;
   }
 }
