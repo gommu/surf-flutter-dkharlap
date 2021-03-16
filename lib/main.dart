@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(App());
-}
-
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Surf Flutter Cource App',
-      home: MySecondWidget(),
-    );
-  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: MyFirstWidget(),
-      // home: MySecondWidget(),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -52,6 +40,43 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.alarm),
+            onPressed: _incrementCounter,
+          ),
+        ],
+        bottom: PreferredSize(
+          child: Text('AppBar Bottom'),
+          preferredSize: const Size.fromHeight(45),
+        ),
+      ),
+      drawer: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+            ),
+            ListTile(
+              title: Text('Tile 1'),
+            ),
+            ListTile(
+              title: Text('Tile 2'),
+            ),
+            ListTile(
+              title: Text('Tile 3'),
+            ),
+            ListTile(
+              title: Text('Tile 4'),
+            ),
+          ],
+        ),
+        color: Colors.greenAccent,
+        width: 250,
       ),
       body: Center(
         child: Column(
@@ -72,53 +97,22 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
-    );
-  }
-}
-
-class MyFirstWidget extends StatelessWidget {
-  var buildCounter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    // print(contextType());
-    buildCounter += 1;
-    print('MyFirstWidget counter: $buildCounter');
-
-    return Container(
-      child: Center(
-        child: Text('Hello Stateles!'),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
-  }
-
-  // Type contextType() {
-  //   return context.runtimeType;
-  // }
-}
-
-class MySecondWidget extends StatefulWidget {
-  @override
-  _MySecondWidgetState createState() => _MySecondWidgetState();
-}
-
-class _MySecondWidgetState extends State<MySecondWidget> {
-  var buildCounter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    print(contextType());
-    buildCounter += 1;
-    print('MyFirstWidget counter: $buildCounter');
-
-    return Container(
-      child: Center(
-        child: Text('Hello Stateful!'),
-      ),
-    );
-  }
-
-  Type contextType() {
-    return context.runtimeType;
   }
 }
