@@ -1,6 +1,6 @@
 # places
 
-A new Flutter project.
+Flutter project for favorite places
 
 ## Getting Started
 
