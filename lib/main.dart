@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/screen/sight_screen.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
+  // debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 
