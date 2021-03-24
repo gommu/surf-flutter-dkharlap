@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/res/text_styles.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
@@ -39,12 +40,7 @@ class SightCard extends StatelessWidget {
                     children: [
                       Text(
                         sight.type.toLowerCase(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Roboto',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: textBold14PrimaryWhite,
                       ),
                       Container(
                         child: Icon(
@@ -77,21 +73,11 @@ class SightCard extends StatelessWidget {
                     sight.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Color(0xff3B3E5B),
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: textMedium16Primary,
                   ),
                   Text(
                     'краткое описание',
-                    style: TextStyle(
-                      color: Color(0xff3B3E5B),
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: textRegular14Primary,
                   ),
                 ],
               ),

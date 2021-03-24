@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: SightListScreen(),
-      home: SightDetails(),
+      home: SightListScreen(),
+      // home: SightDetails(),
     );
   }
 }
