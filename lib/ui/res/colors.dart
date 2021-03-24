@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Используют только основную палитру
 const Color textColorSecondary = _slateGrey,
     textColorPrimary = _blueZodiac,
+    textColorWhite = _white,
     textColorButton = _white,
     textButtonActive = _white,
     iconActive = _white,
