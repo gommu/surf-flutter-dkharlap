@@ -45,6 +45,12 @@ TextStyle textBold24Primary = _text.copyWith(
   color: textColorPrimary,
 );
 
+TextStyle textBold32PrimaryHeader = _text.copyWith(
+  fontWeight: FontWeight.bold,
+  fontSize: 32,
+  color: textColorPrimary,
+);
+
 TextStyle textBold14PrimaryWhite = _text.copyWith(
   fontWeight: FontWeight.bold,
   fontSize: 14,
