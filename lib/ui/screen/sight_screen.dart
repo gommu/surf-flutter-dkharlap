@@ -13,22 +13,22 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: FavoritePlacesAppBar('Список интересных мест'),
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0.0,
-      //   centerTitle: false,
-      //   toolbarHeight: 100,
-      //   title: Container(
-      //     height: 100,
-      //     alignment: Alignment.bottomCenter,
-      //     child: Text(
-      //       'Список интересных мест',
-      //       maxLines: 2,
-      //       style: textBold32PrimaryHeader,
-      //     ),
-      //   ),
-      // ),
+      // appBar: FavoritePlacesAppBar('Список интересных мест'),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: false,
+        toolbarHeight: 100,
+        title: Container(
+          height: 100,
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'Список интересных мест',
+            maxLines: 2,
+            style: textBold32PrimaryHeader,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

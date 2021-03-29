@@ -9,27 +9,21 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 3 / 2,
-      child: Container(
-        // width: double.infinity,
-        // height: 200,
-        margin: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _PlacePhoto(sight: sight),
-            SizedBox(
-              height: 12,
-            ),
-            _PlaceDescription(sight: sight),
-          ],
-        ),
+    return Container(
+      width: double.infinity,
+      height: 200,
+      margin: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        // color: Colors.amber,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _PlacePhoto(sight: sight),
+          _PlaceDescription(sight: sight),
+        ],
       ),
     );
   }
@@ -67,7 +61,7 @@ class _PlaceDescription extends StatelessWidget {
               ),
               child: Text(
                 sight.name,
-                // maxLines: 2,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: textMedium16Primary,
               ),
@@ -95,15 +89,35 @@ class _PlacePhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 96,
-      decoration: BoxDecoration(
-        color: Colors.purple,
-        borderRadius: const BorderRadius.only(
-          topLeft: const Radius.circular(16),
-          topRight: const Radius.circular(16),
-        ),
-      ),
       child: Stack(
         children: [
+          Container(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: const Radius.circular(16),
+                topRight: const Radius.circular(16),
+              ),
+              child: Image.network(
+                sight.url,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes
+                          : null,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
