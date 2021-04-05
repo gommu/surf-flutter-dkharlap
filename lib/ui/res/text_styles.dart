@@ -19,12 +19,29 @@ TextStyle textRegular14Secondary = _text.copyWith(
   fontSize: 14,
   color: textColorSecondary,
 );
+TextStyle textRegular14CardDescription = _text.copyWith(
+  fontWeight: FontWeight.w400,
+  fontSize: 14,
+  color: textColorCardDescription,
+);
 
 //Medium
 TextStyle textMedium16Primary = _text.copyWith(
   fontWeight: FontWeight.w500,
   fontSize: 16,
   color: textColorPrimary,
+);
+
+TextStyle textMedium18PrimaryHeader = _text.copyWith(
+  fontWeight: FontWeight.w500,
+  fontSize: 18,
+  color: textColorPrimaryHeader,
+);
+
+TextStyle textMedium18Secondary = _text.copyWith(
+  fontWeight: FontWeight.w500,
+  fontSize: 18,
+  color: textColorSecondary,
 );
 
 //Bold
@@ -37,6 +54,11 @@ TextStyle textBold14Primary = _text.copyWith(
   fontWeight: FontWeight.bold,
   fontSize: 14,
   color: textColorPrimary,
+);
+
+TextStyle textBold14 = _text.copyWith(
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
 );
 
 TextStyle textBold24Primary = _text.copyWith(

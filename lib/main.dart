@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/screen/sight_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
+import 'package:places/ui/screen/sight_screen.dart';
+import 'package:places/ui/screen/visiting_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +15,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SightListScreen(),
+      home: VisitingScreen(),
       // home: SightDetails(),
+      // home: SightListScreen(),
     );
   }
 }

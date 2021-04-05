@@ -10,7 +10,14 @@ class SightDetails extends StatelessWidget {
         children: [
           Container(
             height: 360,
-            color: Colors.indigoAccent,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  'https://34travel.me/media/upload/images/2018/november/34dstpr/IMG_0249.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Align(
               alignment: Alignment(-0.87, -0.65),
               child: SizedBox(
