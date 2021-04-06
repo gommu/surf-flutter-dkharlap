@@ -14,7 +14,6 @@ class SightCard extends StatelessWidget {
       height: 200,
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        // color: Colors.amber,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -57,7 +56,6 @@ class _PlaceDescription extends StatelessWidget {
             ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: 360,
-                // maxWidth: 180, - половина карточки
               ),
               child: Text(
                 sight.name,
@@ -128,9 +126,13 @@ class _PlacePhoto extends StatelessWidget {
                   style: textBold14PrimaryWhite,
                 ),
                 Container(
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.white,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
                 ),
               ],

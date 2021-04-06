@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/widgets/custom_bottom_navigation_bar.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -13,7 +14,6 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // appBar: FavoritePlacesAppBar('Список интересных мест'),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -36,6 +36,7 @@ class _SightListScreenState extends State<SightListScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
