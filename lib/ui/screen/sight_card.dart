@@ -11,7 +11,7 @@ class SightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      // height: 200,
+      height: 200,
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -59,7 +59,7 @@ class _PlaceDescription extends StatelessWidget {
               ),
               child: Text(
                 sight.name,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: textMedium16Primary,
               ),
