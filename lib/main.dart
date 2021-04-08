@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: lightTheme,
       home: VisitingScreen(),
       // home: SightDetails(),
       // home: SightListScreen(),

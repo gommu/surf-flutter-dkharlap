@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/widgets/custom_bottom_navigation_bar.dart';
 import 'package:places/ui/widgets/visiting_tabbar.dart';
 import 'package:places/ui/widgets/visiting_tabbar_view.dart';
@@ -30,12 +29,12 @@ class _VisitingScreenState extends State<VisitingScreen>
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 125,
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: true,
         title: Text(
           'Избранное',
-          style: textMedium18PrimaryHeader,
+          // style: textMedium18PrimaryHeader,
         ),
         bottom: VisitingTabBar(_tabController),
       ),
