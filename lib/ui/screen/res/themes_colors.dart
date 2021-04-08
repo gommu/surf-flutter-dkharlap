@@ -18,7 +18,7 @@ Color lmTabBarSelectedLableColor = Color(0xff3B3E5B);
 Color lmTabBarUnSelectedLableTextColor = Color(0xff7C7E92);
 Color lmTabBarSelectedLableTextColor = Colors.white;
 Color lmBottomNavBarDividerColor = Color(0xff7C7E92);
-Color lmBottomNavBarIconsColor = Colors.white;
+Color lmBottomNavBarIconsColor = Color(0xff252849);
 Color lmActiveIconColor = Color(0xff3B3E5B);
 
 // Dark Theme Colors
