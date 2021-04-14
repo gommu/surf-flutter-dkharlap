@@ -47,7 +47,7 @@ class _PlaceDescriptionMain extends StatelessWidget {
 
   final Sight sight;
 
-  Widget descriptionSection() {
+  Widget descriptionSection(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -56,18 +56,19 @@ class _PlaceDescriptionMain extends StatelessWidget {
         children: [
           ConstrainedBox(
             constraints: BoxConstraints(
+              minHeight: 40,
               maxWidth: 360,
             ),
             child: Text(
               sight.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: textMedium16Primary,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Text(
             'краткое описание',
-            style: textRegular14Primary,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ],
       ),
@@ -78,13 +79,13 @@ class _PlaceDescriptionMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xffF5F5F5),
+        color: Theme.of(context).primaryColorDark,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
       ),
-      child: descriptionSection(),
+      child: descriptionSection(context),
     );
   }
 }
@@ -98,7 +99,7 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
   final Sight sight;
 
   @override
-  Widget descriptionSection() {
+  Widget descriptionSection(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -113,7 +114,7 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
               sight.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: textMedium16Primary,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Padding(
@@ -126,7 +127,7 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
           SizedBox(),
           Text(
             'закрыто до 09:00',
-            style: textRegular14Primary,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),
@@ -143,7 +144,7 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
   final Sight sight;
 
   @override
-  Widget descriptionSection() {
+  Widget descriptionSection(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -158,7 +159,7 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
               sight.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: textMedium16Primary,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Padding(
@@ -171,7 +172,7 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
           SizedBox(),
           Text(
             'закрыто до 09:00',
-            style: textRegular14Primary,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),

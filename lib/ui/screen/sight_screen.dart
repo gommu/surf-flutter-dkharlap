@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/text_styles.dart';
-import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/widgets/base_sight_card.dart';
 import 'package:places/ui/widgets/custom_bottom_navigation_bar.dart';
 
 class SightListScreen extends StatefulWidget {
@@ -25,14 +25,14 @@ class _SightListScreenState extends State<SightListScreen> {
           child: Text(
             'Список интересных мест',
             maxLines: 2,
-            style: textBold32PrimaryHeader,
+            style: Theme.of(context).textTheme.headline4,
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ...mocks.map((e) => SightCard(e)).toList(),
+            ...mocks.map((e) => BaseSightCard(e)).toList(),
           ],
         ),
       ),

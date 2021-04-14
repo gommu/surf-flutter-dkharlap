@@ -34,14 +34,14 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   'Пряности и радости',
-                  style: textBold24Primary,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'ресторан',
-                      style: textBold14Primary,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(
                       width: 16,
@@ -57,7 +57,7 @@ class SightDetails extends StatelessWidget {
                 ),
                 Text(
                   'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
-                  style: textRegular14Primary,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(
                   height: 24,
@@ -110,7 +110,7 @@ class _AddToFavoriteButton extends StatelessWidget {
           ),
           Text(
             'В Избранное',
-            style: textRegular14Primary,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ],
       ),
@@ -165,7 +165,7 @@ class _BuildWaypointButton extends StatelessWidget {
           children: [
             Icon(
               Icons.insights,
-              color: iconActive,
+              // color: iconActive,
             ),
             const SizedBox(
               width: 10,
@@ -190,7 +190,7 @@ class _BackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         borderRadius: const BorderRadius.all(
           const Radius.circular(10),
         ),
