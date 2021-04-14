@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print('BottomNavBar item pressed');
     });
   }
 
@@ -28,21 +30,37 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       child: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: SvgPicture.asset(
+              'res/images/icons/List.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
             label: 'List',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map),
+            icon: SvgPicture.asset(
+              'res/images/icons/Map.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
             label: 'Map',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
+            icon: SvgPicture.asset(
+              'res/images/icons/Heart Full.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: SvgPicture.asset(
+              'res/images/icons/Settings.svg',
+              height: 24.0,
+              width: 24.0,
+            ),
             label: 'Settings',
           ),
         ],

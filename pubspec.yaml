@@ -25,6 +25,7 @@ flutter:
 
   assets:
     - res/
+    - res/images/icons/
   fonts:
     - family: Roboto
       fonts:

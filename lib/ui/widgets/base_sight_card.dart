@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/res/button_styles.dart';
 
 class BaseSightCard extends StatelessWidget {
   final Sight sight;
@@ -181,22 +183,44 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
 }
 
 class _PlacePhotoMain extends StatelessWidget {
-  const _PlacePhotoMain({
+  _PlacePhotoMain({
     Key key,
     @required this.sight,
   }) : super(key: key);
 
   final Sight sight;
 
+  Widget _actionButton(String assetPath, Function handler) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 24),
+      child: ElevatedButton(
+        onPressed: handler,
+        child: Container(
+          child: SvgPicture.asset(
+            assetPath,
+            color: Colors.white,
+            height: 24.0,
+            width: 24.0,
+          ),
+        ),
+        style: cardActionStyle,
+      ),
+    );
+  }
+
   Widget availableActions() {
     return Container(
-      child: Row(
-        children: [
-          Icon(
-            Icons.favorite_border,
-            color: Colors.white,
-          )
-        ],
+      child: ConstrainedBox(
+        constraints: BoxConstraints.tightFor(
+          height: 24,
+        ),
+        child: Row(
+          children: [
+            _actionButton('res/images/icons/Heart.svg', () {
+              print('Button heart pressed');
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -254,7 +278,7 @@ class _PlacePhotoMain extends StatelessWidget {
 }
 
 class _ToVisitPlacePhoto extends _PlacePhotoMain {
-  const _ToVisitPlacePhoto({
+  _ToVisitPlacePhoto({
     Key key,
     @required this.sight,
   }) : super(sight: sight, key: key);
@@ -264,27 +288,30 @@ class _ToVisitPlacePhoto extends _PlacePhotoMain {
   @override
   Widget availableActions() {
     return Container(
-      child: Row(
-        children: [
-          Icon(
-            Icons.calendar_today,
-            color: Colors.white,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            Icons.close,
-            color: Colors.white,
-          ),
-        ],
+      child: ConstrainedBox(
+        constraints: BoxConstraints.tightFor(
+          height: 24,
+        ),
+        child: Row(
+          children: [
+            _actionButton('res/images/icons/Calendar.svg', () {
+              print('Button calendar pressed');
+            }),
+            SizedBox(
+              width: 16,
+            ),
+            _actionButton('res/images/icons/Close.svg', () {
+              print('Button close pressed');
+            }),
+          ],
+        ),
       ),
     );
   }
 }
 
 class _VisitedPlacePhoto extends _PlacePhotoMain {
-  const _VisitedPlacePhoto({
+  _VisitedPlacePhoto({
     Key key,
     @required this.sight,
   }) : super(sight: sight, key: key);
@@ -294,20 +321,23 @@ class _VisitedPlacePhoto extends _PlacePhotoMain {
   @override
   Widget availableActions() {
     return Container(
-      child: Row(
-        children: [
-          Icon(
-            Icons.share,
-            color: Colors.white,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            Icons.close,
-            color: Colors.white,
-          ),
-        ],
+      child: ConstrainedBox(
+        constraints: BoxConstraints.tightFor(
+          height: 24,
+        ),
+        child: Row(
+          children: [
+            _actionButton('res/images/icons/Share.svg', () {
+              print('Button share pressed');
+            }),
+            SizedBox(
+              width: 16,
+            ),
+            _actionButton('res/images/icons/Close.svg', () {
+              print('Button close pressed');
+            }),
+          ],
+        ),
       ),
     );
   }

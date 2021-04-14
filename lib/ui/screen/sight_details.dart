@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/res/button_styles.dart';
 
 class SightDetails extends StatelessWidget {
   @override
@@ -73,15 +75,17 @@ class SightDetails extends StatelessWidget {
                 const Divider(
                   thickness: 0.8,
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _PlanButton(),
-                    _AddToFavoriteButton(),
-                  ],
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 32,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _PlanButton(),
+                      _AddToFavoriteButton(),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -99,21 +103,21 @@ class _AddToFavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Icon(
-            Icons.favorite_border,
-          ),
-          const SizedBox(
-            width: 9,
-          ),
-          Text(
-            'В Избранное',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ],
+    return TextButton.icon(
+      onPressed: () {
+        print('Button to favorite pressed');
+      },
+      icon: SvgPicture.asset(
+        'res/images/icons/Heart.svg',
+        color: iconDisabled,
+        height: 24.0,
+        width: 24.0,
       ),
+      label: Text(
+        'В Избранное',
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      style: placeActionButtonStyle,
     );
   }
 }
@@ -125,22 +129,21 @@ class _PlanButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Icon(
-            Icons.calendar_today,
-            color: iconDisabled,
-          ),
-          const SizedBox(
-            width: 9,
-          ),
-          Text(
-            'Запланировать',
-            style: textRegular14Secondary,
-          ),
-        ],
+    return TextButton.icon(
+      onPressed: () {
+        print('Button plan pressed');
+      },
+      icon: SvgPicture.asset(
+        'res/images/icons/Calendar.svg',
+        color: iconDisabled,
+        height: 24.0,
+        width: 24.0,
       ),
+      label: Text(
+        'Запланировать',
+        style: textRegular14Secondary,
+      ),
+      style: placeActionButtonStyle,
     );
   }
 }
@@ -152,31 +155,21 @@ class _BuildWaypointButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(12),
-        ),
+    return ElevatedButton.icon(
+      onPressed: () {
+        print('Button build waypoint pressed');
+      },
+      icon: SvgPicture.asset(
+        'res/images/icons/GO.svg',
+        color: Colors.white,
+        height: 24.0,
+        width: 24.0,
       ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.insights,
-              // color: iconActive,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              'ПОСТРОИТЬ МАРШРУТ',
-              style: textButtonBoldActive,
-            ),
-          ],
-        ),
+      label: Text(
+        'ПОСТРОИТЬ МАРШРУТ',
+        style: textButtonBoldActive,
       ),
+      style: primaryButtonStyle,
     );
   }
 }
@@ -188,18 +181,17 @@ class _BackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-        borderRadius: const BorderRadius.all(
-          const Radius.circular(10),
-        ),
+    return ElevatedButton(
+      onPressed: () {
+        print('Button back pressed');
+      },
+      child: SvgPicture.asset(
+        'res/images/icons/Arrow.svg',
+        color: Colors.black,
+        height: 24.0,
+        width: 24.0,
       ),
-      child: Center(
-        child: Icon(
-          Icons.arrow_back_ios_rounded,
-        ),
-      ),
+      style: backButtonStyle,
     );
   }
 }
