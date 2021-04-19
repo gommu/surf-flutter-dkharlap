@@ -40,3 +40,21 @@ final ButtonStyle backButtonStyle = ButtonStyle(
     ),
   ),
 );
+
+final ButtonStyle appBarButtonStyle = ButtonStyle(
+  elevation: MaterialStateProperty.all(0.0),
+  padding: MaterialStateProperty.all(EdgeInsets.zero),
+  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+);
+
+final ButtonStyle filterButtonStyle = ButtonStyle(
+  elevation: MaterialStateProperty.all(0.0),
+  padding: MaterialStateProperty.all(EdgeInsets.zero),
+  // backgroundColor: MaterialStateProperty.resolveWith((states) => null),
+  backgroundColor: MaterialStateProperty.all(Colors.green.withOpacity(0.26)),
+  shape: MaterialStateProperty.all(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(32),
+    ),
+  ),
+);
