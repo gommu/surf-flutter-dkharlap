@@ -19,6 +19,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    Color iconColor =
+        Theme.of(context).bottomNavigationBarTheme.unselectedItemColor;
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -36,6 +39,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               'res/images/icons/List.svg',
               height: 24.0,
               width: 24.0,
+              color: iconColor,
             ),
             label: 'List',
           ),
@@ -44,22 +48,25 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               'res/images/icons/Map.svg',
               height: 24.0,
               width: 24.0,
+              color: iconColor,
             ),
             label: 'Map',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'res/images/icons/Heart Full.svg',
+              'res/images/icons/Heart.svg',
               height: 24.0,
               width: 24.0,
+              color: iconColor,
             ),
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'res/images/icons/Settings.svg',
+              'res/images/icons/Settings-fill.svg',
               height: 24.0,
               width: 24.0,
+              color: iconColor,
             ),
             label: 'Settings',
           ),

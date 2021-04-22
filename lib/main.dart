@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/theme_switcher.dart';
 import 'package:places/ui/screen/res/themes.dart';
+import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
@@ -9,16 +11,36 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeData _theme = lightTheme;
+  final ThemeSwitcher _themeSwitcher = ThemeSwitcher();
+
+  @override
+  void initState() {
+    _themeSwitcher.addListener(() {
+      setState(() {
+        _theme = _themeSwitcher.theme;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: lightTheme,
+      theme: _theme,
       // home: VisitingScreen(),
       // home: SightDetails(),
       // home: SightListScreen(),
-      home: FiltersScreen(),
+      home: SettingsScreen(),
+      // home: FiltersScreen(),
     );
   }
 }
