@@ -6,7 +6,7 @@ import 'package:places/ui/screen/res/button_styles.dart';
 
 class BaseSightCard extends StatelessWidget {
   final Sight sight;
-  final Widget photoWidget;
+  final _PlacePhotoMain photoWidget;
   final Widget descriptionWidget;
 
   BaseSightCard(this.sight)
@@ -29,12 +29,41 @@ class BaseSightCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Stack(
         children: [
-          photoWidget,
-          descriptionWidget,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              photoWidget,
+              descriptionWidget,
+            ],
+          ),
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                onTap: () {},
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    sight.type.toLowerCase(),
+                    style: textBold14PrimaryWhite,
+                  ),
+                  photoWidget.availableActions(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -256,19 +285,6 @@ class _PlacePhotoMain extends StatelessWidget {
                   );
                 },
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  sight.type.toLowerCase(),
-                  style: textBold14PrimaryWhite,
-                ),
-                availableActions(),
-              ],
             ),
           ),
         ],
