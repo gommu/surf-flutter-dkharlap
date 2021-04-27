@@ -38,8 +38,8 @@ class _MyAppState extends State<MyApp> {
       theme: _theme,
       // home: VisitingScreen(),
       // home: SightDetails(),
-      // home: SightListScreen(),
-      home: SettingsScreen(),
+      home: SightListScreen(),
+      // home: SettingsScreen(),
       // home: FiltersScreen(),
     );
   }
