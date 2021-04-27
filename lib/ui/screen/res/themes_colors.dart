@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Light Theme Colors
+Color lmPrimaryColor = Color(0xff4CAF50);
 Color lmPrimaryColorDark = Color(0xffF5F5F5);
 Color lmAccentColor = Color(0xff7C7E92);
 Color lmPrimaryTextColor = Color(0xff3B3E5B);

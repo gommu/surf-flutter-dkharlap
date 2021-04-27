@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:places/ui/screen/res/themes_colors.dart';
 import 'package:places/ui/screen/res/themes_styles.dart';
 
+import 'themes_colors.dart';
+
 ThemeData lightTheme = ThemeData(
+  primaryColor: lmPrimaryColor,
   backgroundColor: lmBackgroundColor,
   primaryColorDark: lmPrimaryColorDark,
   accentColor: lmAccentColor,
@@ -42,6 +45,13 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: lmBottomNavBarBackgroundColor,
     selectedItemColor: lmBottomNavBarIconsColor,
     unselectedItemColor: lmBottomNavBarIconsColor,
+  ),
+  sliderTheme: SliderThemeData(
+    activeTrackColor: lmPrimaryColor,
+    inactiveTrackColor: lmAccentColor,
+    thumbColor: lmBackgroundColor,
+    trackHeight: 1,
+    overlayColor: lmPrimaryColor.withOpacity(0.16),
   ),
 );
 
