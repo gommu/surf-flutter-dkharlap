@@ -36,6 +36,7 @@ ThemeData lightTheme = ThemeData(
     headline6: lmTextHeadline6,
     headline5: lmTextHeadline5,
     headline4: lmTextHeadline4,
+    headline3: lmTextHeadline3,
     subtitle2: lmTextSubtitle2,
     subtitle1: lmTextSubtitle1,
     bodyText1: lmTextBody1,
@@ -88,6 +89,7 @@ ThemeData darkTheme = ThemeData(
     headline6: dmTextHeadline6,
     headline5: dmTextHeadline5,
     headline4: dmTextHeadline4,
+    headline3: dmTextHeadline3,
     subtitle2: dmTextSubtitle2,
     subtitle1: dmTextSubtitle1,
     bodyText1: dmTextBody1,
@@ -95,7 +97,13 @@ ThemeData darkTheme = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: dmBottomNavBarBackgroundColor,
+    selectedIconTheme: IconThemeData(
+      color: dmBottomNavBarIconsColor,
+    ),
     selectedItemColor: dmBottomNavBarIconsColor,
+    unselectedIconTheme: IconThemeData(
+      color: dmBottomNavBarIconsColor,
+    ),
     unselectedItemColor: dmBottomNavBarIconsColor,
   ),
 );

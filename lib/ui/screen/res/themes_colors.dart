@@ -10,6 +10,8 @@ Color lmBody2TextColor = Color(0xff7C7E92);
 Color lmSubtitle1TextColor = Color(0xff3B3E5B);
 Color lmSubtitle2TextColor = Color(0xff3B3E5B);
 
+Color lmSettingsTextColor = Color(0xff3B3E5B);
+
 Color lmBackgroundColor = Colors.white;
 Color lmScaffoldBackgroundColor = Colors.white;
 Color lmBottomNavBarBackgroundColor = Colors.white;
@@ -30,6 +32,9 @@ Color dmBody1TextColor = Colors.white;
 Color dmBody2TextColor = Color(0xff7C7E92);
 Color dmSubtitle1TextColor = Color(0xff7C7E92);
 Color dmSubtitle2TextColor = Color(0xff7C7E92);
+
+Color dmSettingsTextColor = Colors.white;
+
 Color dmBackgroundColor = Color(0xff21222C);
 Color dmScaffoldBackgroundColor = Color(0xff21222C);
 Color dmBottomNavBarBackgroundColor = Color(0xff21222C);

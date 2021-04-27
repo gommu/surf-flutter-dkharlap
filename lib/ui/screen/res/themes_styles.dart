@@ -49,6 +49,12 @@ TextStyle lmTextHeadline6 = _text.copyWith(
   color: lmPrimaryTextColor,
 );
 
+TextStyle lmTextHeadline3 = _text.copyWith(
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: lmSettingsTextColor,
+);
+
 TextStyle lmTextBody1 = _text.copyWith(
   fontWeight: FontWeight.w400,
   fontSize: 14,
@@ -102,6 +108,12 @@ TextStyle dmTextHeadline6 = _text.copyWith(
   fontWeight: FontWeight.w500,
   fontSize: 16,
   color: dmPrimaryTextColor,
+);
+
+TextStyle dmTextHeadline3 = _text.copyWith(
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: dmSettingsTextColor,
 );
 
 TextStyle dmTextBody1 = _text.copyWith(
