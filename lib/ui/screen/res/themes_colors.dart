@@ -9,6 +9,7 @@ Color lmBody1TextColor = Color(0xff3B3E5B);
 Color lmBody2TextColor = Color(0xff7C7E92);
 Color lmSubtitle1TextColor = Color(0xff3B3E5B);
 Color lmSubtitle2TextColor = Color(0xff3B3E5B);
+Color lmHeadline2TextColor = Color(0xff7C7E92);
 
 Color lmSettingsTextColor = Color(0xff3B3E5B);
 
@@ -17,6 +18,8 @@ Color lmScaffoldBackgroundColor = Colors.white;
 Color lmBottomNavBarBackgroundColor = Colors.white;
 
 Color lmAppBarTextColor = Color(0xff252849);
+Color lmAppBarLeadingTextColor = Color(0xff7C7E92);
+
 Color lmTabBarSelectedLableColor = Color(0xff3B3E5B);
 Color lmTabBarUnSelectedLableTextColor = Color(0xff7C7E92);
 Color lmTabBarSelectedLableTextColor = Colors.white;

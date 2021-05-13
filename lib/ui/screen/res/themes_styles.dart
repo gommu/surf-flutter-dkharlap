@@ -14,6 +14,12 @@ TextStyle lmTextAppBarTitle = _text.copyWith(
   color: lmAppBarTextColor,
 );
 
+TextStyle lmTextAppBarLeading = _text.copyWith(
+  fontWeight: FontWeight.w500,
+  fontSize: 18,
+  color: lmAppBarLeadingTextColor,
+);
+
 TextStyle lmTextTabBarLable = _text.copyWith(
   fontWeight: FontWeight.w700,
   fontSize: 14,
@@ -53,6 +59,12 @@ TextStyle lmTextHeadline3 = _text.copyWith(
   fontWeight: FontWeight.w400,
   fontSize: 16,
   color: lmSettingsTextColor,
+);
+
+TextStyle lmTextHeadline2 = _text.copyWith(
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: lmHeadline2TextColor,
 );
 
 TextStyle lmTextBody1 = _text.copyWith(

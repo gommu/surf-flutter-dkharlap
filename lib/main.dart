@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/theme_switcher.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
       home: SightListScreen(),
       // home: SettingsScreen(),
       // home: FiltersScreen(),
+      // home: AddSightScreen(),
     );
   }
 }

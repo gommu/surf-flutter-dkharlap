@@ -186,7 +186,7 @@ class _BackButton extends StatelessWidget {
         print('Button back pressed');
       },
       child: SvgPicture.asset(
-        'res/images/icons/Arrow.svg',
+        'res/images/icons/Arrow Left.svg',
         color: Colors.black,
         height: 24.0,
         width: 24.0,
