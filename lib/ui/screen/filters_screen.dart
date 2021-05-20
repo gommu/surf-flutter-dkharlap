@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
+import 'package:places/ui/screen/res/utils.dart';
 
 import 'res/themes_styles.dart';
 
@@ -17,27 +19,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
   var _categories = <Map>[];
   var _startPosition = {'long': 27.55, 'lat': 53.90};
 
-  List<Sight> _filteredPlaces(double distanceStart, double distanceEnd) {
-    List<Sight> result = mocks.where((e) {
-      var p = 0.017453292519943295;
-      var a = 0.5 -
-          cos((e.lat - _startPosition['lat']) * p) / 2 +
-          cos(_startPosition['lat'] * p) *
-              cos(e.lat * p) *
-              (1 - cos((e.lon - _startPosition['long']) * p)) /
-              2;
-      double distance = 12742 * asin(sqrt(a)) * 1000;
-
-      if (distance >= distanceStart && distance <= distanceEnd) {
-        return true;
-      } else {
-        return false;
-      }
-    }).toList();
-
-    return result;
-  }
-
   RangeValues _currentRangeValues = const RangeValues(100, 10000);
 
   @override
@@ -45,32 +26,32 @@ class _FiltersScreenState extends State<FiltersScreen> {
     _categories.add({
       'name': 'Отель',
       'isActive': false,
-      'asset': 'res/images/icons/Hotel.svg'
+      'asset': iconHotel,
     });
     _categories.add({
       'name': 'Ресторан',
       'isActive': false,
-      'asset': 'res/images/icons/Restourant.svg'
+      'asset': iconRestourant,
     });
     _categories.add({
       'name': 'Особое место',
       'isActive': false,
-      'asset': 'res/images/icons/Particular place.svg'
+      'asset': iconParticularPlace,
     });
     _categories.add({
       'name': 'Парк',
       'isActive': false,
-      'asset': 'res/images/icons/Park.svg'
+      'asset': iconPark,
     });
     _categories.add({
       'name': 'Музей',
       'isActive': false,
-      'asset': 'res/images/icons/Museum.svg'
+      'asset': iconMuseum,
     });
     _categories.add({
       'name': 'Кафе',
       'isActive': false,
-      'asset': 'res/images/icons/Cafe.svg'
+      'asset': iconCafe,
     });
 
     super.initState();
@@ -108,7 +89,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 Positioned.fill(
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: SvgPicture.asset('res/images/icons/Tick choice.svg'),
+                    child: SvgPicture.asset(iconTickChoice),
                   ),
                 ),
             ],
@@ -142,9 +123,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
           height: 56,
           alignment: Alignment.bottomCenter,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _BackButton(),
               TextButton(
                 onPressed: () {
                   setState(() {
@@ -164,6 +144,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             ],
           ),
         ),
+        leading: _BackButton(),
       ),
       body: Column(
         children: [
@@ -262,7 +243,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       print('save filters and slider');
                     },
                     child: Text(
-                        'ПОКАЗАТЬ (${_filteredPlaces(_currentRangeValues.start, _currentRangeValues.end).length})'),
+                        'ПОКАЗАТЬ (${filteredSights(_startPosition, _currentRangeValues.start, _currentRangeValues.end).length})'),
                     style: primaryButtonStyle,
                   ),
                 ),
@@ -285,9 +266,10 @@ class _BackButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         print('Button back pressed');
+        Navigator.pop(context);
       },
       child: SvgPicture.asset(
-        'res/images/icons/Arrow Left.svg',
+        iconArrowLeft,
         color: Colors.black,
         height: 32.0,
         width: 32.0,

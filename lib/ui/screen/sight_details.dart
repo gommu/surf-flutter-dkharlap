@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 
 class SightDetails extends StatelessWidget {
+  final Sight sight;
+
+  SightDetails(this.sight);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +20,7 @@ class SightDetails extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  'https://34travel.me/media/upload/images/2018/november/34dstpr/IMG_0249.jpg',
+                  sight.url,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -35,14 +40,14 @@ class SightDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Пряности и радости',
+                  sight.name,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'ресторан',
+                      sight.type,
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(
@@ -58,7 +63,7 @@ class SightDetails extends StatelessWidget {
                   height: 24,
                 ),
                 Text(
-                  'Пряный вкус радостной жизни вместе с шеф-поваром Изо Дзандзава, благодаря которой у гостей ресторана есть возможность выбирать из двух направлений: европейского и восточного',
+                  sight.details,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(
@@ -184,6 +189,7 @@ class _BackButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         print('Button back pressed');
+        Navigator.of(context).pop();
       },
       child: SvgPicture.asset(
         'res/images/icons/Arrow Left.svg',
