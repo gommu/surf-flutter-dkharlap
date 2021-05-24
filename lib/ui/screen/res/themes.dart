@@ -18,6 +18,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Colors.transparent,
     textTheme: TextTheme(
       headline6: lmTextAppBarTitle,
+      headline5: lmTextAppBarLeading,
     ),
   ),
   tabBarTheme: TabBarTheme(
@@ -37,6 +38,7 @@ ThemeData lightTheme = ThemeData(
     headline5: lmTextHeadline5,
     headline4: lmTextHeadline4,
     headline3: lmTextHeadline3,
+    headline2: lmTextHeadline2,
     subtitle2: lmTextSubtitle2,
     subtitle1: lmTextSubtitle1,
     bodyText1: lmTextBody1,
@@ -53,6 +55,9 @@ ThemeData lightTheme = ThemeData(
     thumbColor: lmBackgroundColor,
     trackHeight: 1,
     overlayColor: lmPrimaryColor.withOpacity(0.16),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(),
   ),
 );
 

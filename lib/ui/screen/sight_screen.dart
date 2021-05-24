@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/widgets/base_sight_card.dart';
 import 'package:places/ui/widgets/custom_bottom_navigation_bar.dart';
 
@@ -37,6 +39,45 @@ class _SightListScreenState extends State<SightListScreen> {
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: LinearGradient(
+            colors: [Color(0xffFCDD3D), Color(0xff4CAF50)],
+          ),
+        ),
+        width: 177,
+        height: 48,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.transparent,
+            shadowColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ),
+          ),
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SvgPicture.asset(
+                iconPlus,
+                color: Colors.white,
+                height: 24.0,
+                width: 24.0,
+              ),
+              Text(
+                'НОВОЕ МЕСТО',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2
+                    .copyWith(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
