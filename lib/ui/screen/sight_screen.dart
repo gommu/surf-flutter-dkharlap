@@ -5,6 +5,7 @@ import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/widgets/base_sight_card.dart';
 import 'package:places/ui/widgets/custom_bottom_navigation_bar.dart';
+import 'package:places/ui/widgets/search_bar.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  final controller = TextEditingController();
+  final focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +28,16 @@ class _SightListScreenState extends State<SightListScreen> {
         title: Container(
           height: 100,
           alignment: Alignment.bottomCenter,
-          child: Text(
-            'Список интересных мест',
-            maxLines: 2,
-            style: Theme.of(context).textTheme.headline4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'Список интересных мест',
+                maxLines: 2,
+                style: Theme.of(context).appBarTheme.textTheme.headline6,
+              ),
+              SearchBar.withFilter(controller, focusNode),
+            ],
           ),
         ),
       ),

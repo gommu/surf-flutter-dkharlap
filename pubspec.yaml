@@ -25,7 +25,24 @@ flutter:
 
   assets:
     - res/
+    - res/images/icons/Search.svg
+    - res/images/icons/Filter.svg
     - res/images/icons/Plus.svg
+    - res/images/icons/Settings-fill.svg
+    - res/images/icons/Map.svg
+    - res/images/icons/List.svg
+    - res/images/icons/Heart.svg
+    - res/images/icons/Clear.svg
+    - res/images/icons/Delete.svg
+    - res/images/icons/Hotel.svg
+    - res/images/icons/Restourant.svg
+    - res/images/icons/Particular place.svg
+    - res/images/icons/Park.svg
+    - res/images/icons/Museum.svg
+    - res/images/icons/Cafe.svg
+    - res/images/icons/GO.svg
+    - res/images/icons/Arrow Left.svg
+    - res/images/icons/Calendar.svg
   fonts:
     - family: Roboto
       fonts:
