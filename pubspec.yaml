@@ -43,6 +43,9 @@ flutter:
     - res/images/icons/GO.svg
     - res/images/icons/Arrow Left.svg
     - res/images/icons/Calendar.svg
+    - res/images/icons/Close.svg
+    - res/images/icons/Share.svg
+    - res/images/icons/Card.svg
   fonts:
     - family: Roboto
       fonts:
