@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +21,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
   final latitudeFocusNode = FocusNode();
   final longitudeFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
+
+  final List<Widget> _photoCardsList = [];
 
   @override
   void dispose() {
@@ -63,7 +66,21 @@ class _AddSightScreenState extends State<AddSightScreen> {
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
             child: Container(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          buildEmptyImageCard(context),
+                          ..._photoCardsList,
+                        ],
+                      ),
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -323,5 +340,90 @@ class _AddSightScreenState extends State<AddSightScreen> {
     }
 
     return decoration;
+  }
+
+  Widget buildEmptyImageCard(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _photoCardsList.add(buildImageCard(UniqueKey()));
+          });
+        },
+        child: Container(
+          height: 72,
+          width: 72,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border(
+              top: BorderSide(
+                width: 1.0,
+                color: Theme.of(context).primaryColor,
+              ),
+              left: BorderSide(
+                width: 1.0,
+                color: Theme.of(context).primaryColor,
+              ),
+              right: BorderSide(
+                width: 1.0,
+                color: Theme.of(context).primaryColor,
+              ),
+              bottom: BorderSide(
+                width: 1.0,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.add,
+              size: 45,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildImageCard(Key key) {
+    return Padding(
+      key: key,
+      padding: const EdgeInsets.only(right: 16),
+      child: Stack(
+        textDirection: TextDirection.rtl,
+        children: [
+          Container(
+            height: 72,
+            width: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage(imgEiffel),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 28, maxHeight: 28),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  _photoCardsList.removeWhere((element) => element.key == key);
+                });
+              },
+              icon: SvgPicture.asset(
+                iconClear,
+                color: Colors.white,
+                height: 24.0,
+                width: 24.0,
+              ),
+              padding: const EdgeInsets.all(0),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
