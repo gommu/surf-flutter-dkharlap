@@ -388,41 +388,45 @@ class _AddSightScreenState extends State<AddSightScreen> {
   }
 
   Widget buildImageCard(Key key) {
-    return Padding(
+    return Dismissible(
       key: key,
-      padding: const EdgeInsets.only(right: 16),
-      child: Stack(
-        textDirection: TextDirection.rtl,
-        children: [
-          Container(
-            height: 72,
-            width: 72,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              image: DecorationImage(
-                image: AssetImage(imgEiffel),
-                fit: BoxFit.cover,
+      direction: DismissDirection.vertical,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16),
+        child: Stack(
+          textDirection: TextDirection.rtl,
+          children: [
+            Container(
+              height: 72,
+              width: 72,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: AssetImage(imgEiffel),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 28, maxHeight: 28),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  _photoCardsList.removeWhere((element) => element.key == key);
-                });
-              },
-              icon: SvgPicture.asset(
-                iconClear,
-                color: Colors.white,
-                height: 24.0,
-                width: 24.0,
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 28, maxHeight: 28),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _photoCardsList
+                        .removeWhere((element) => element.key == key);
+                  });
+                },
+                icon: SvgPicture.asset(
+                  iconClear,
+                  color: Colors.white,
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                padding: const EdgeInsets.all(0),
               ),
-              padding: const EdgeInsets.all(0),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
