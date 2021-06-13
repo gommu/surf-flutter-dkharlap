@@ -19,12 +19,10 @@ class ToVisitSightCard extends StatefulWidget {
 class _ToVisitSightCardState extends State<ToVisitSightCard> {
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-        'Call build method ' + context.toString() + ' ' + widget.sightName);
     return Container(
-      width: double.infinity,
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
+        color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Stack(
