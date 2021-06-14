@@ -20,7 +20,6 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(16),
@@ -67,10 +66,22 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
 
   Widget photoSection(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: const Radius.circular(16),
+          topRight: const Radius.circular(16),
+        ),
+      ),
       height: 96,
       child: Stack(
         children: [
           Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: const Radius.circular(16),
+                topRight: const Radius.circular(16),
+              ),
+            ),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: const Radius.circular(16),

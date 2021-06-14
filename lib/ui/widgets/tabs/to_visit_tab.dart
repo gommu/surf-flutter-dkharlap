@@ -37,7 +37,7 @@ class _ToVisitTabState extends State<ToVisitTab> {
     });
   }
 
-  Widget _draggableWrapper(Widget child) {
+  Widget _gestureWrapper(ToVisitSightCard child) {
     return LongPressDraggable<ToVisitSightCard>(
       axis: Axis.vertical,
       data: child,
@@ -49,7 +49,63 @@ class _ToVisitTabState extends State<ToVisitTab> {
         ),
         width: MediaQuery.of(context).size.width,
       ),
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          bottom: 16.0,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.endToStart,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Colors.red,
+                  Colors.red,
+                ]),
+              ),
+              child: child,
+            ),
+            background: Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          iconBucket,
+                          color: Colors.white,
+                          height: 24.0,
+                          width: 24.0,
+                        ),
+                        Text(
+                          'Удалить',
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                                color: Colors.white,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            onDismissed: (direction) {
+              removeSightToVisitAction(child.sight);
+            },
+          ),
+        ),
+      ),
       onDragStarted: () {
         setState(() {
           _willAccept = true;
@@ -108,14 +164,17 @@ class _ToVisitTabState extends State<ToVisitTab> {
       int index = 1;
       List<Widget> children = [];
       toVisitCards.forEach((element) {
-        children.add(_draggableWrapper(element));
+        children.add(_gestureWrapper(element));
         children.add(_toVisitDragTarget(index++));
       });
 
       return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: children,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: children,
+          ),
         ),
       );
     } else {
