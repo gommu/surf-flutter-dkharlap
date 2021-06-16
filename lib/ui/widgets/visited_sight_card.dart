@@ -19,8 +19,6 @@ class VisitedSightCard extends StatefulWidget {
 class _VisitedSightCardState extends State<VisitedSightCard> {
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-        'Call build method ' + context.toString() + ' ' + widget.sightName);
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(16.0),

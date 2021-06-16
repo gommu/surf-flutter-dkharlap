@@ -37,12 +37,12 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: _theme,
-      // home: VisitingScreen(),
+      home: VisitingScreen(),
       // home: SightDetails(),
       // home: SightListScreen(),
       // home: SettingsScreen(),
       // home: FiltersScreen(),
-      home: AddSightScreen(),
+      // home: AddSightScreen(),
     );
   }
 }
