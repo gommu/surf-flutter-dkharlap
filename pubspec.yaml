@@ -42,10 +42,12 @@ flutter:
     - res/images/icons/Cafe.svg
     - res/images/icons/GO.svg
     - res/images/icons/Arrow Left.svg
+    - res/images/icons/Arrow Right.svg
     - res/images/icons/Calendar.svg
     - res/images/icons/Close.svg
     - res/images/icons/Share.svg
     - res/images/icons/Card.svg
+    - res/images/mock_images/eiffel.jpeg
   fonts:
     - family: Roboto
       fonts:

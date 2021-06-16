@@ -18,3 +18,5 @@ const String iconGO = 'res/images/icons/GO.svg';
 const String iconCalendar = 'res/images/icons/Calendar.svg';
 const String iconClose = 'res/images/icons/Close.svg';
 const String iconShare = 'res/images/icons/Share.svg';
+
+const String imgEiffel = 'res/images/mock_images/eiffel.jpeg';
