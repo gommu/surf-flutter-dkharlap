@@ -175,13 +175,21 @@ class __SearchResultsState extends State<_SearchResults> {
     List<Widget> filteredSights = _filterResults(context);
 
     if (filteredSights.isNotEmpty) {
-      return Padding(
+      return ListView.builder(
+        itemCount: filteredSights.length,
+        itemBuilder: (_, index) {
+          return filteredSights[index];
+        },
+        physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: filteredSights),
       );
+      // return Padding(
+      //   padding: const EdgeInsets.all(16.0),
+      //   child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.start,
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: filteredSights),
+      // );
     } else {
       return SafeArea(
         child: Center(
