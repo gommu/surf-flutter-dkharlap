@@ -47,6 +47,7 @@ flutter:
     - res/images/icons/Close.svg
     - res/images/icons/Share.svg
     - res/images/icons/Card.svg
+    - res/images/icons/Bucket.svg
     - res/images/mock_images/eiffel.jpeg
   fonts:
     - family: Roboto
