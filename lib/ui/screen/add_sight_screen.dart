@@ -68,17 +68,16 @@ class _AddSightScreenState extends State<AddSightScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: SingleChildScrollView(
+                  SizedBox(
+                    height: 90,
+                    child: ListView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          buildEmptyImageCard(context),
-                          ..._photoCardsList,
-                        ],
-                      ),
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      physics: BouncingScrollPhysics(),
+                      children: [
+                        buildEmptyImageCard(context),
+                        ..._photoCardsList,
+                      ],
                     ),
                   ),
                   Row(

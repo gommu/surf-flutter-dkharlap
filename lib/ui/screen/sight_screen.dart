@@ -18,6 +18,8 @@ class _SightListScreenState extends State<SightListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<BaseSightCard> children = mocks.map((e) => BaseSightCard(e)).toList();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -41,12 +43,12 @@ class _SightListScreenState extends State<SightListScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ...mocks.map((e) => BaseSightCard(e)).toList(),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: children.length,
+        itemBuilder: (_, index) {
+          return children[index];
+        },
+        physics: BouncingScrollPhysics(),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
       floatingActionButton: Container(

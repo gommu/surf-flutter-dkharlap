@@ -168,14 +168,13 @@ class _ToVisitTabState extends State<ToVisitTab> {
         children.add(_toVisitDragTarget(index++));
       });
 
-      return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
-          ),
-        ),
+      return ListView.builder(
+        itemCount: children.length,
+        itemBuilder: (_, index) {
+          return children[index];
+        },
+        physics: BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(16.0),
       );
     } else {
       return Center(
