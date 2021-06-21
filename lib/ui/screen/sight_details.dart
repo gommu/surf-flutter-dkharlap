@@ -22,21 +22,11 @@ class _SightDetailsState extends State<SightDetails> {
   ];
 
   PageController _pageController = PageController();
-  double _currentPage = 0;
-
-  @override
-  void initState() {
-    _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page;
-      });
-    });
-    super.initState();
-  }
+  int _currentPage = 0;
 
   Widget _indicator() {
     List<Widget> children = List.generate(_imageUrls.length, (index) {
-      if (index == _currentPage.round()) {
+      if (index == _currentPage) {
         return Flexible(
           child: Container(
             // Использовал зеленый цвет для лучшего контраста
@@ -84,6 +74,12 @@ class _SightDetailsState extends State<SightDetails> {
                       ),
                     );
                   }).toList(),
+                  onPageChanged: (index) {
+                    setState(() {
+                      print(index);
+                      _currentPage = index;
+                    });
+                  },
                 ),
                 Align(
                   alignment: Alignment(-0.87, -0.65),
