@@ -21,3 +21,7 @@ const String iconShare = 'res/images/icons/Share.svg';
 const String iconBucket = 'res/images/icons/Bucket.svg';
 
 const String imgEiffel = 'res/images/mock_images/eiffel.jpeg';
+
+const String iconOnboarding1 = 'res/images/onboarding_icons/tutorial_1.svg';
+const String iconOnboarding2 = 'res/images/onboarding_icons/tutorial_2.svg';
+const String iconOnboarding3 = 'res/images/onboarding_icons/tutorial_3.svg';
