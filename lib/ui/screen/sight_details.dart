@@ -3,12 +3,53 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/colors.dart';
 import 'package:places/ui/res/text_styles.dart';
+import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 
-class SightDetails extends StatelessWidget {
+class SightDetails extends StatefulWidget {
   final Sight sight;
-
   SightDetails(this.sight);
+
+  @override
+  _SightDetailsState createState() => _SightDetailsState();
+}
+
+class _SightDetailsState extends State<SightDetails> {
+  final List<String> _imageUrls = [
+    'https://www.belta.by/images/storage/news/with_archive/2019/000024_1572452511_367584_big.jpg',
+    'https://media-cdn.tripadvisor.com/media/photo-s/0c/f0/be/24/caption.jpg',
+    'https://34travel.me/media/upload/images/2018/november/34dstpr/IMG_0249.jpg',
+  ];
+
+  PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  Widget _indicator() {
+    List<Widget> children = List.generate(_imageUrls.length, (index) {
+      if (index == _currentPage) {
+        return Flexible(
+          child: Container(
+            // Использовал зеленый цвет для лучшего контраста
+            color: Colors.green,
+          ),
+          flex: 1,
+        );
+      } else {
+        return Flexible(
+          child: Container(
+            color: Colors.transparent,
+          ),
+          flex: 1,
+        );
+      }
+    });
+    return Container(
+      height: 8,
+      child: Row(
+        children: children,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +58,42 @@ class SightDetails extends StatelessWidget {
         children: [
           Container(
             height: 360,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  sight.url,
+            child: Stack(
+              children: [
+                PageView(
+                  controller: _pageController,
+                  children: _imageUrls.map((url) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            url,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                  onPageChanged: (index) {
+                    setState(() {
+                      print(index);
+                      _currentPage = index;
+                    });
+                  },
                 ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Align(
-              alignment: Alignment(-0.87, -0.65),
-              child: SizedBox(
-                height: 32,
-                width: 32,
-                child: _BackButton(),
-              ),
+                Align(
+                  alignment: Alignment(-0.87, -0.65),
+                  child: SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: _BackButton(),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: _indicator(),
+                ),
+              ],
             ),
           ),
           Padding(
@@ -40,14 +102,14 @@ class SightDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  sight.name,
+                  widget.sight.name,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      sight.type,
+                      widget.sight.type,
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     const SizedBox(
@@ -63,7 +125,7 @@ class SightDetails extends StatelessWidget {
                   height: 24,
                 ),
                 Text(
-                  sight.details,
+                  widget.sight.details,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(
@@ -192,7 +254,7 @@ class _BackButton extends StatelessWidget {
         Navigator.of(context).pop();
       },
       child: SvgPicture.asset(
-        'res/images/icons/Arrow Left.svg',
+        iconLeftArrow,
         color: Colors.black,
         height: 24.0,
         width: 24.0,

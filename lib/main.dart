@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/mocks.dart';
 import 'package:places/theme_switcher.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -38,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: _theme,
       // home: VisitingScreen(),
-      // home: SightDetails(),
-      home: SightListScreen(),
+      home: SightDetails(mocks[0]),
+      // home: SightListScreen(),
       // home: SettingsScreen(),
       // home: FiltersScreen(),
       // home: AddSightScreen(),
