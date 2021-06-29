@@ -49,6 +49,9 @@ flutter:
     - res/images/icons/Card.svg
     - res/images/icons/Bucket.svg
     - res/images/mock_images/eiffel.jpeg
+    - res/images/onboarding_icons/tutorial_1.svg
+    - res/images/onboarding_icons/tutorial_2.svg
+    - res/images/onboarding_icons/tutorial_3.svg
   fonts:
     - family: Roboto
       fonts:
