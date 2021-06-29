@@ -54,103 +54,114 @@ class _SightDetailsState extends State<SightDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 360,
-            child: Stack(
-              children: [
-                PageView(
-                  controller: _pageController,
-                  children: _imageUrls.map((url) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            url,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  onPageChanged: (index) {
-                    setState(() {
-                      print(index);
-                      _currentPage = index;
-                    });
-                  },
-                ),
-                Align(
-                  alignment: Alignment(-0.87, -0.65),
-                  child: SizedBox(
-                    height: 32,
-                    width: 32,
-                    child: _BackButton(),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _indicator(),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.sight.name,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 360,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                height: 360,
+                child: Stack(
                   children: [
-                    Text(
-                      widget.sight.type,
-                      style: Theme.of(context).textTheme.subtitle2,
+                    PageView(
+                      controller: _pageController,
+                      children: _imageUrls.map((url) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                url,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onPageChanged: (index) {
+                        setState(() {
+                          print(index);
+                          _currentPage = index;
+                        });
+                      },
                     ),
-                    const SizedBox(
-                      width: 16,
+                    Align(
+                      alignment: Alignment(-0.87, -0.65),
+                      child: SizedBox(
+                        height: 32,
+                        width: 32,
+                        child: _BackButton(),
+                      ),
                     ),
-                    Text(
-                      'Закрыто до 9:00',
-                      style: textRegular14Secondary,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _indicator(),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  widget.sight.details,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                SizedBox(
-                  height: 48,
-                  width: double.infinity,
-                  child: _BuildWaypointButton(),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const Divider(
-                  thickness: 0.8,
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 32,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _PlanButton(),
-                      _AddToFavoriteButton(),
+                      Text(
+                        widget.sight.name,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.sight.type,
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            'Закрыто до 9:00',
+                            style: textRegular14Secondary,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        widget.sight.details,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      SizedBox(
+                        height: 48,
+                        width: double.infinity,
+                        child: _BuildWaypointButton(),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      const Divider(
+                        thickness: 0.8,
+                      ),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: 32,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _PlanButton(),
+                            _AddToFavoriteButton(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
