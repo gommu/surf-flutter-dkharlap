@@ -40,12 +40,12 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: _theme,
       // home: VisitingScreen(),
-      // home: SightDetails(mocks[0]),
+      home: SightDetails(mocks[0]),
       // home: SightListScreen(),
       // home: SettingsScreen(),
       // home: FiltersScreen(),
       // home: AddSightScreen(),
-      home: OnboardingScreen(),
+      // home: OnboardingScreen(),
     );
   }
 }
