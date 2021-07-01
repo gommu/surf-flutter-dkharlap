@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -22,33 +23,25 @@ class _SightListScreenState extends State<SightListScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        centerTitle: false,
-        toolbarHeight: 100,
-        title: Container(
-          height: 100,
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'Список интересных мест',
-                maxLines: 2,
-                style: Theme.of(context).appBarTheme.textTheme.headline6,
+      body: Container(
+        color: Colors.white,
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              delegate: HeaderTitleDelegate(),
+              pinned: true,
+            ),
+            SliverPersistentHeader(
+              delegate: StickyHeaderAppBar(controller, focusNode),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => children[index],
+                childCount: children.length,
               ),
-              SearchBar.withFilter(controller, focusNode),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
-      body: ListView.builder(
-        itemCount: children.length,
-        itemBuilder: (_, index) {
-          return children[index];
-        },
-        physics: BouncingScrollPhysics(),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
       floatingActionButton: Container(
@@ -123,4 +116,64 @@ class FavoritePlacesAppBar extends StatelessWidget
       ),
     );
   }
+}
+
+class HeaderTitleDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.white,
+      height: 100,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Text(
+              'Список интересных мест',
+              maxLines: 2,
+              style: Theme.of(context).appBarTheme.textTheme.headline6,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 85;
+
+  @override
+  double get minExtent => 85;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}
+
+class StickyHeaderAppBar extends SliverPersistentHeaderDelegate {
+  final TextEditingController _controller;
+  final FocusNode _focusNode;
+
+  StickyHeaderAppBar(this._controller, this._focusNode);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SearchBar.withFilter(_controller, _focusNode),
+    );
+  }
+
+  @override
+  double get maxExtent => 70;
+
+  @override
+  double get minExtent => 50;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }
