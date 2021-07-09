@@ -7,6 +7,7 @@ import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_screen.dart';
+import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:places/ui/screen/filters_screen.dart';
 
@@ -41,7 +42,8 @@ class _MyAppState extends State<MyApp> {
       theme: _theme,
       // home: VisitingScreen(),
       // home: SightDetails(mocks[0]),
-      home: SightListScreen(),
+      home: SplashScreen(),
+      // home: SightListScreen(),
       // home: SettingsScreen(),
       // home: FiltersScreen(),
       // home: AddSightScreen(),
