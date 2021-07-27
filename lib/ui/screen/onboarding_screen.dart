@@ -10,7 +10,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   Widget _buildIndicator() {
     List<Widget> children = List.generate(3, (index) {
@@ -60,7 +60,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           color: Colors.green,
                         ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/sight-list');
+                  },
                 ),
               ),
             ),
@@ -118,7 +120,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   child: Container(),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/sight-list');
+                  },
                 ),
               ),
             ),
@@ -164,7 +168,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 48,
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/sight-list');
+                        },
                         child: Text('НА СТАРТ'),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green,

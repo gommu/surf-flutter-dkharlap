@@ -17,13 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToNext() {
-    isInitialized = Future.delayed(const Duration(seconds: 2), () {
+    isInitialized = Future.delayed(const Duration(seconds: 15), () {
       // TODO Do init job here
       print('Initialize finished');
       return 'finished';
     }).then(
-      // TODO Navigate to next page
-      (value) => print('Moving to next page, init result: $value'),
+      (value) {
+        print('Moving to next page, init result: $value');
+        Navigator.pushNamed(context, '/onboarding');
+      }
     );
   }
 

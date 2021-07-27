@@ -44,7 +44,10 @@ class BaseSightCard extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                onTap: () {},
+                onTap: () {
+                  print('sight card tapped');
+                  Navigator.pushNamed(context, '/sight-details');
+                },
               ),
             ),
           ),

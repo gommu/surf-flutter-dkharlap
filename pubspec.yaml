@@ -29,6 +29,7 @@ flutter:
     - res/images/icons/Filter.svg
     - res/images/icons/Plus.svg
     - res/images/icons/Settings-fill.svg
+    - res/images/icons/Settings.svg
     - res/images/icons/Map.svg
     - res/images/icons/List.svg
     - res/images/icons/Heart.svg
@@ -36,6 +37,7 @@ flutter:
     - res/images/icons/Delete.svg
     - res/images/icons/Hotel.svg
     - res/images/icons/Restourant.svg
+    - res/images/icons/Info.svg
     - res/images/icons/Particular place.svg
     - res/images/icons/Park.svg
     - res/images/icons/Museum.svg
