@@ -61,7 +61,9 @@ class _SightListScreenState extends State<SightListScreen> {
               borderRadius: BorderRadius.circular(24.0),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/add-sight');
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

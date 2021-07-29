@@ -13,7 +13,24 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      print('BottomNavBar item pressed');
+      switch(index) {
+        case 0: {
+          Navigator.pushNamedAndRemoveUntil(context, '/sight-list', (r) => false);
+        }
+        break;
+        case 1: {
+          print('Route to map');
+        }
+        break;
+        case 2: {
+          Navigator.pushNamedAndRemoveUntil(context, '/visiting', (r) => false);
+        }
+        break;
+        case 3: {
+          Navigator.pushNamedAndRemoveUntil(context, '/settings', (r) => false);
+        }
+        break;
+      }
     });
   }
 
@@ -63,7 +80,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'res/images/icons/Settings-fill.svg',
+              'res/images/icons/Settings.svg',
               height: 24.0,
               width: 24.0,
               color: iconColor,

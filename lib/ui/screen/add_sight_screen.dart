@@ -55,7 +55,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
               style: Theme.of(context).appBarTheme.textTheme.headline5,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Text('Новое место'),
         leadingWidth: 100,
