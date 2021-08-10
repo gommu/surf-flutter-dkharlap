@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToNext() {
-    isInitialized = Future.delayed(const Duration(seconds: 15), () {
+    isInitialized = Future.delayed(const Duration(seconds: 2), () {
       // TODO Do init job here
       print('Initialize finished');
       return 'finished';

@@ -41,6 +41,20 @@ final ButtonStyle backButtonStyle = ButtonStyle(
   ),
 );
 
+final ButtonStyle closeBottomSheetButtonStyle = ButtonStyle(
+  elevation: MaterialStateProperty.all(0.0),
+  padding: MaterialStateProperty.all(EdgeInsets.zero),
+  backgroundColor: MaterialStateProperty.all(Colors.white),
+  shape: MaterialStateProperty.all(
+    // CircleBorder(
+    //   side: BorderSide(width: 20),
+    // ),
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+);
+
 final ButtonStyle appBarButtonStyle = ButtonStyle(
   elevation: MaterialStateProperty.all(0.0),
   padding: MaterialStateProperty.all(EdgeInsets.zero),
