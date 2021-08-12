@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
+import 'package:places/ui/widgets/bottom_sheets/sight_detail_bottom_sheet.dart';
+
+import '../../mocks.dart';
 
 class BaseSightCard extends StatelessWidget {
   final Sight sight;
@@ -45,8 +48,19 @@ class BaseSightCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
                 onTap: () {
-                  print('sight card tapped');
-                  Navigator.pushNamed(context, '/sight-details');
+                  // Nav to Sight details
+                  // Navigator.pushNamed(context, '/sight-details');
+                  // Open sight detail as bottom sheet
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return SightDetailsBottomSheet(mocks[0]);
+                    },
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                  );
                 },
               ),
             ),

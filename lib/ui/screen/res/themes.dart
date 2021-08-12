@@ -59,6 +59,9 @@ ThemeData lightTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(),
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+  ),
 );
 
 ////////////////
