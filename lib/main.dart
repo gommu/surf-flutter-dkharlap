@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:places/mocks.dart';
 import 'package:places/theme_switcher.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
@@ -38,6 +39,15 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ''),
+        Locale('ru', ''),
+      ],
       title: 'Flutter Demo',
       theme: _theme,
       routes: {

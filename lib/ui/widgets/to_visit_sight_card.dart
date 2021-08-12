@@ -8,6 +8,7 @@ import 'package:places/ui/screen/res/button_styles.dart';
 class ToVisitSightCard extends StatefulWidget {
   final Sight sight;
   final Function removeCard;
+
   ToVisitSightCard({Key key, this.sight, this.removeCard}) : super(key: key);
 
   String get sightName => sight.name;
@@ -157,7 +158,13 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
         child: Row(
           children: [
             _actionButton(iconCalendar, () {
-              print('Button calendar pressed');
+              showDatePicker(
+                context: context,
+                locale: const Locale('ru'),
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(Duration(days: 365)),
+              );
             }),
             SizedBox(
               width: 16,
