@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -348,9 +349,12 @@ class _AddSightScreenState extends State<AddSightScreen> {
       padding: const EdgeInsets.only(right: 16),
       child: GestureDetector(
         onTap: () {
-          setState(() {
-            _photoCardsList.add(buildImageCard(UniqueKey()));
-          });
+          // Adding of Image Cards for Sight
+          // setState(() {
+          //   _photoCardsList.add(buildImageCard(UniqueKey()));
+          // });
+
+          _showSelectImageSourceDialog();
         },
         child: Container(
           height: 72,
@@ -385,6 +389,15 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showSelectImageSourceDialog() async {
+    var result = await showDialog(
+      context: context,
+      builder: (_) {
+        return SelectImageSourceDialog();
+      },
     );
   }
 
@@ -429,6 +442,87 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SelectImageSourceDialog extends StatelessWidget {
+  const SelectImageSourceDialog({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: 0),
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.symmetric(horizontal: 0),
+      elevation: 0.0,
+      content: Container(
+        width: MediaQuery.of(context).size.width - 32,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _options("Камера", iconCamera, context),
+                  Divider(),
+                  _options("Фото", iconPhoto, context),
+                  Divider(),
+                  _options("Файл", iconFile, context),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context, 'cancel');
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(10.0))),
+                child: Center(
+                    child: Text(
+                  "ОТМЕНА",
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .copyWith(color: Theme.of(context).primaryColor),
+                )),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _options(String name, String iconPath, BuildContext context) {
+    var color = Theme.of(context).accentColor;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(children: [
+        SvgPicture.asset(
+          iconPath,
+          color: color,
+          height: 24.0,
+          width: 24.0,
+        ),
+        const SizedBox(width: 13),
+        Text(
+          name,
+          style: Theme.of(context).textTheme.headline3.copyWith(color: color),
+        ),
+      ]),
     );
   }
 }
