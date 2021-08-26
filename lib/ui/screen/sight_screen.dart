@@ -20,7 +20,8 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     List<BaseSightCard> children = mocks.map((e) => BaseSightCard(e)).toList();
-
+    var childAspectRatio =
+        MediaQuery.of(context).orientation == Orientation.portrait ? 1.8 : 1.95;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -28,13 +29,19 @@ class _SightListScreenState extends State<SightListScreen> {
         child: CustomScrollView(
           slivers: [
             SliverPersistentHeader(
-              delegate: HeaderTitleDelegate(),
+              delegate: MediaQuery.of(context).orientation == Orientation.portrait ? HeaderTitleDelegatePortrait() : HeaderTitleDelegateLandscape(),
               pinned: true,
             ),
             SliverPersistentHeader(
               delegate: StickyHeaderAppBar(controller, focusNode),
             ),
-            SliverList(
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 500.0,
+                mainAxisSpacing: 1.0,
+                crossAxisSpacing: 1.0,
+                childAspectRatio: childAspectRatio,
+              ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) => children[index],
                 childCount: children.length,
@@ -47,7 +54,7 @@ class _SightListScreenState extends State<SightListScreen> {
       floatingActionButton: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [Color(0xffFCDD3D), Color(0xff4CAF50)],
           ),
         ),
@@ -89,55 +96,27 @@ class _SightListScreenState extends State<SightListScreen> {
   }
 }
 
-class FavoritePlacesAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  final String title;
 
-  FavoritePlacesAppBar(title, {Key key})
-      : preferredSize = Size.fromHeight(150.0),
-        title = title,
-        super(key: key);
-
-  @override
-  final Size preferredSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: preferredSize.height,
-      ),
-      child: Center(
-        child: Container(
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            title,
-            style: textBold32PrimaryHeader,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HeaderTitleDelegate extends SliverPersistentHeaderDelegate {
+class HeaderTitleDelegatePortrait extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+
     return Container(
       color: Colors.white,
-      height: 100,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SafeArea(
-        child: Column(
-          children: [
-            Text(
-              'Список интересных мест',
-              maxLines: 2,
-              style: Theme.of(context).appBarTheme.textTheme.headline6,
+          child: Align(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Text(
+                  'Список интересных мест',
+                  maxLines: 2,
+                  style: Theme.of(context).appBarTheme.textTheme.headline6,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
       ),
     );
   }
@@ -153,6 +132,44 @@ class HeaderTitleDelegate extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
+
+
+class HeaderTitleDelegateLandscape extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              Text(
+                'Список интересных мест',
+                style: Theme.of(context).appBarTheme.textTheme.headline6,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 55;
+
+  @override
+  double get minExtent => 55;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}
+
 
 class StickyHeaderAppBar extends SliverPersistentHeaderDelegate {
   final TextEditingController _controller;
