@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/ui/res/text_styles.dart';
@@ -67,20 +68,20 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
 
   Widget photoSection(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: const Radius.circular(16),
-          topRight: const Radius.circular(16),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
       ),
       height: 96,
       child: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: const Radius.circular(16),
-                topRight: const Radius.circular(16),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
               ),
             ),
             child: ClipRRect(
@@ -122,7 +123,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 360,
             ),
             child: Text(
@@ -139,7 +140,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
               style: textRegular14CardDescription,
             ),
           ),
-          SizedBox(),
+          const SizedBox(),
           Text(
             'закрыто до 09:00',
             style: Theme.of(context).textTheme.bodyText2,
@@ -150,35 +151,38 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
   }
 
   Widget _availableActions() {
-    return Container(
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-          height: 24,
-        ),
-        child: Row(
-          children: [
-            _actionButton(iconCalendar, () {
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(
+        height: 24,
+      ),
+      child: Row(
+        children: [
+          _actionButton(iconCalendar, () {
+            bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+            if (isIOS) {
+              _showDatePicker(context);
+            } else {
               showDatePicker(
                 context: context,
                 locale: const Locale('ru'),
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(Duration(days: 365)),
+                lastDate: DateTime.now().add(const Duration(days: 365)),
               );
-            }),
-            SizedBox(
-              width: 16,
-            ),
-            _actionButton(iconClose, () => widget.removeCard(widget.sight)),
-          ],
-        ),
+            }
+          }),
+          const SizedBox(
+            width: 16,
+          ),
+          _actionButton(iconClose, () => widget.removeCard(widget.sight)),
+        ],
       ),
     );
   }
 
   Widget _actionButton(String assetPath, Function handler) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 24),
+      constraints: const BoxConstraints(maxWidth: 24),
       child: ElevatedButton(
         onPressed: handler,
         child: Container(
@@ -190,6 +194,23 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
           ),
         ),
         style: cardActionStyle,
+      ),
+    );
+  }
+
+  void _showDatePicker(ctx) {
+    showCupertinoModalPopup(
+      context: ctx,
+      builder: (_) => Container(
+        height: 300,
+        color: const Color.fromARGB(255, 255, 255, 255),
+        child: SizedBox(
+          height: 300,
+          child: CupertinoDatePicker(
+            initialDateTime: DateTime.now(),
+            onDateTimeChanged: (_) {},
+          ),
+        ),
       ),
     );
   }

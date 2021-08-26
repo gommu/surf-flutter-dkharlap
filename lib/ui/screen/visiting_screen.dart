@@ -29,12 +29,10 @@ class _VisitingScreenState extends State<VisitingScreen>
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 125,
-        // backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Избранное',
-          // style: textMedium18PrimaryHeader,
         ),
         bottom: VisitingTabBar(_tabController),
       ),

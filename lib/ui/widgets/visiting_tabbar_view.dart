@@ -11,7 +11,7 @@ import 'package:places/ui/widgets/visited_sight_card.dart';
 class VisitingTabBarView extends StatefulWidget {
   final TabController _tabController;
 
-  VisitingTabBarView(this._tabController, {Key key}) : super(key: key);
+  const VisitingTabBarView(this._tabController, {Key key}) : super(key: key);
 
   @override
   _VisitingTabBarViewState createState() => _VisitingTabBarViewState();
@@ -59,7 +59,7 @@ class _VisitingTabBarViewState extends State<VisitingTabBarView> {
               height: 64.0,
               width: 64.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             Text(
@@ -69,8 +69,8 @@ class _VisitingTabBarViewState extends State<VisitingTabBarView> {
                     fontSize: 18,
                   ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(53, 8, 53, 0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(53, 8, 53, 0),
               child: Text(
                 'Завершите маршрут, чтобы место попало сюда.',
                 textAlign: TextAlign.center,
@@ -84,7 +84,6 @@ class _VisitingTabBarViewState extends State<VisitingTabBarView> {
 
   @override
   Widget build(BuildContext context) {
-    print('Rebuild tabbarview');
     return TabBarView(
       controller: widget._tabController,
       children: [
