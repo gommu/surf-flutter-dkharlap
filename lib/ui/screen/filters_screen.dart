@@ -58,60 +58,61 @@ class _FiltersScreenState extends State<FiltersScreen> {
   }
 
   Widget _generateFilter(Map data) {
-    return Container(
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                  width: 64,
-                  height: 64,
+    return Column(
+      children: [
+        Stack(
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints.tightFor(
+                width: 64,
+                height: 64,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    data['isActive'] = !data['isActive'];
+                  });
+                },
+                child: SvgPicture.asset(
+                  data['asset'],
+                  color: Colors.green,
                 ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      data['isActive'] = !data['isActive'];
-                    });
-                  },
-                  child: SvgPicture.asset(
-                    data['asset'],
-                    color: Colors.green,
-                  ),
-                  style: data['isActive'] == false
-                      ? filterButtonStyle
-                      : filterButtonStyle.copyWith(
-                          backgroundColor: MaterialStateProperty.all(
-                              Colors.green.withOpacity(0.08))),
+                style: data['isActive'] == false
+                    ? filterButtonStyle
+                    : filterButtonStyle.copyWith(
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.green.withOpacity(0.08))),
+              ),
+            ),
+            if (data['isActive'])
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: SvgPicture.asset(iconTickChoice),
                 ),
               ),
-              if (data['isActive'])
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: SvgPicture.asset(iconTickChoice),
-                  ),
-                ),
-            ],
+          ],
+        ),
+        const SizedBox(height: 12),
+        ConstrainedBox(
+          constraints: const BoxConstraints.tightFor(
+            width: 96,
+            height: 16,
           ),
-          SizedBox(height: 12),
-          ConstrainedBox(
-            constraints: BoxConstraints.tightFor(
-              width: 96,
-              height: 16,
-            ),
-            child: Text(
-              data['name'],
-              textAlign: TextAlign.center,
-            ),
+          child: Text(
+            data['name'],
+            textAlign: TextAlign.center,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -144,38 +145,38 @@ class _FiltersScreenState extends State<FiltersScreen> {
             ],
           ),
         ),
-        leading: _BackButton(),
+        leading: const _BackButton(),
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-            child: Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'КАТЕГОРИИ',
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                            fontSize: 12,
+                          ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'КАТЕГОРИИ',
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
-                              fontSize: 12,
-                            ),
-                      ),
+                      ..._categories
+                          .getRange(0, 3)
+                          .map((e) => _generateFilter(e))
+                          .toList(),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ..._categories
-                            .getRange(0, 3)
-                            .map((e) => _generateFilter(e))
-                            .toList(),
-                      ],
-                    ),
-                  ),
+                ),
+                if(screenHeight > 800)
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: Row(
@@ -188,34 +189,33 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Расстояние',
-                        style: Theme.of(context)
-                            .appBarTheme
-                            .textTheme
-                            .headline6
-                            .copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                      Text(
-                        'От ${(_currentRangeValues.start / 1000).toStringAsFixed(1)} до '
-                        '${(_currentRangeValues.end / 1000).toStringAsFixed(1)} км',
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
-                              fontSize: 16,
-                            ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Расстояние',
+                      style: Theme.of(context)
+                          .appBarTheme
+                          .textTheme
+                          .headline6
+                          .copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                    Text(
+                      'От ${(_currentRangeValues.start / 1000).toStringAsFixed(1)} до '
+                      '${(_currentRangeValues.end / 1000).toStringAsFixed(1)} км',
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                            fontSize: 16,
+                          ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           RangeSlider(
@@ -231,16 +231,15 @@ class _FiltersScreenState extends State<FiltersScreen> {
           ),
           Expanded(
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: screenHeight > 800 ? Alignment.bottomCenter : Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                padding: const EdgeInsets.fromLTRB(16, 32, 16, 20),
                 child: SizedBox(
                   height: 48,
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       // TODO Save filters and slider values
-                      print('save filters and slider');
                     },
                     child: Text(
                         'ПОКАЗАТЬ (${filteredSights(_startPosition, _currentRangeValues.start, _currentRangeValues.end).length})'),
@@ -265,7 +264,6 @@ class _BackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        print('Button back pressed');
         Navigator.pop(context);
       },
       child: SvgPicture.asset(
