@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/domain/dio_http.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -11,6 +12,16 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    makeRequest();
+  }
+
+  void makeRequest() async {
+    await getRequest();
+  }
 
   Widget _buildIndicator() {
     List<Widget> children = List.generate(3, (index) {
