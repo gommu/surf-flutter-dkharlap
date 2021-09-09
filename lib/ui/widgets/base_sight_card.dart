@@ -46,7 +46,7 @@ class BaseSightCard extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                 onTap: () {
                   // Nav to Sight details
                   // Navigator.pushNamed(context, '/sight-details');
@@ -103,7 +103,7 @@ class _PlaceDescriptionMain extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minHeight: 40,
               maxWidth: 360,
             ),
@@ -128,7 +128,7 @@ class _PlaceDescriptionMain extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColorDark,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
@@ -155,7 +155,7 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 360,
             ),
             child: Text(
