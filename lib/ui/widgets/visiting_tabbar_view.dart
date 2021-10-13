@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/widgets/tabs/to_visit_tab.dart';
-import 'package:places/ui/widgets/to_visit_sight_card.dart';
 import 'package:places/ui/widgets/visited_sight_card.dart';
 
 class VisitingTabBarView extends StatefulWidget {
@@ -18,14 +16,15 @@ class VisitingTabBarView extends StatefulWidget {
 }
 
 class _VisitingTabBarViewState extends State<VisitingTabBarView> {
-  List<VisitedSightCard> visitedCards;
+  List<VisitedPlaceCard> visitedCards;
+  final placeInteractor = PlaceInteractor();
 
   @override
   void initState() {
-    visitedCards = mocks
-        .map((e) => VisitedSightCard(
+    visitedCards = placeInteractor.visitedPlacesRepository.visitedPlaces
+        .map((e) => VisitedPlaceCard(
               key: UniqueKey(),
-              sight: e,
+              place: e,
               removeCard: removeSightVisitedAction,
             ))
         .toList();
@@ -33,15 +32,14 @@ class _VisitingTabBarViewState extends State<VisitingTabBarView> {
     super.initState();
   }
 
-  void removeSightVisitedAction(Sight sight) {
-    debugPrint(sight.toString());
+  void removeSightVisitedAction(Place place) {
     setState(() {
-      visitedCards.removeWhere((element) => element.sightName == sight.name);
+      visitedCards.removeWhere((element) => element.place.id == place.id);
     });
   }
 
   Widget visitedTab() {
-    if (visitedCards != null && visitedCards.length > 0) {
+    if (visitedCards != null && visitedCards.isNotEmpty) {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +85,7 @@ class _VisitingTabBarViewState extends State<VisitingTabBarView> {
     return TabBarView(
       controller: widget._tabController,
       children: [
-        ToVisitTab(),
+        const ToVisitTab(),
         visitedTab(),
       ],
     );

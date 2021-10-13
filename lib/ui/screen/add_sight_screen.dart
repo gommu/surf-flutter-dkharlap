@@ -3,16 +3,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 
 class AddSightScreen extends StatefulWidget {
+  const AddSightScreen({Key key}) : super(key: key);
+
   @override
   _AddSightScreenState createState() => _AddSightScreenState();
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
+
+  final placeInteractor = PlaceInteractor();
+
   final nameFieldController = TextEditingController();
   final latitudeFieldController = TextEditingController();
   final longitudeFieldController = TextEditingController();
@@ -60,193 +65,191 @@ class _AddSightScreenState extends State<AddSightScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text('Новое место'),
+        title: const Text('Новое место'),
         leadingWidth: 100,
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 90,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      physics: BouncingScrollPhysics(),
-                      children: [
-                        buildEmptyImageCard(context),
-                        ..._photoCardsList,
-                      ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 90,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      buildEmptyImageCard(context),
+                      ..._photoCardsList,
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'КАТЕГОРИЯ',
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                            fontSize: 12,
+                          ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'КАТЕГОРИЯ',
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
-                              fontSize: 12,
-                            ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Не выбрано',
-                        style: Theme.of(context).textTheme.headline2,
-                      ),
-                      IconButton(
-                        icon: SvgPicture.asset(
-                          iconRightArrow,
-                          color: Colors.black,
-                          height: 24.0,
-                          width: 24.0,
-                        ),
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                  Divider(),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      buildSectionText(context, 'НАЗВАНИЕ'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  TextField(
-                    decoration: buildInputDecoration(
-                      nameFieldController,
-                      nameFocusNode,
-                      false,
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Не выбрано',
+                      style: Theme.of(context).textTheme.headline2,
                     ),
-                    controller: nameFieldController,
-                    // autofocus: true,
-                    focusNode: nameFocusNode,
-                    onSubmitted: (value) {
-                      latitudeFocusNode.requestFocus();
-                    },
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildSectionText(context, 'ШИРОТА'),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: TextField(
-                                controller: latitudeFieldController,
-                                focusNode: latitudeFocusNode,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
-                                textInputAction: TextInputAction.next,
-                                decoration: buildInputDecoration(
-                                  latitudeFieldController,
-                                  latitudeFocusNode,
-                                  true,
-                                ),
-                                onSubmitted: (value) {
-                                  longitudeFocusNode.requestFocus();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        iconRightArrow,
+                        color: Colors.black,
+                        height: 24.0,
+                        width: 24.0,
                       ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildSectionText(context, 'ДОЛГОТА'),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12.0),
-                              child: TextField(
-                                controller: longitudeFieldController,
-                                focusNode: longitudeFocusNode,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
-                                decoration: buildInputDecoration(
-                                  longitudeFieldController,
-                                  longitudeFocusNode,
-                                  true,
-                                ),
-                                onSubmitted: (value) {
-                                  FocusScope.of(context)
-                                      .requestFocus(descriptionFocusNode);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
                       onPressed: () {},
-                      child: Text(
-                        'Указать на карте',
-                        style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Theme.of(context).primaryColor,
+                    )
+                  ],
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 12,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    buildSectionText(context, 'НАЗВАНИЕ'),
+                  ],
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextField(
+                  decoration: buildInputDecoration(
+                    nameFieldController,
+                    nameFocusNode,
+                    false,
+                  ),
+                  controller: nameFieldController,
+                  // autofocus: true,
+                  focusNode: nameFocusNode,
+                  onSubmitted: (value) {
+                    latitudeFocusNode.requestFocus();
+                  },
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildSectionText(context, 'ШИРОТА'),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: TextField(
+                              controller: latitudeFieldController,
+                              focusNode: latitudeFocusNode,
+                              keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              decoration: buildInputDecoration(
+                                latitudeFieldController,
+                                latitudeFocusNode,
+                                true,
+                              ),
+                              onSubmitted: (value) {
+                                longitudeFocusNode.requestFocus();
+                              },
                             ),
-                      ),
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildSectionText(context, 'ДОЛГОТА'),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: TextField(
+                              controller: longitudeFieldController,
+                              focusNode: longitudeFocusNode,
+                              keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true,
+                              ),
+                              decoration: buildInputDecoration(
+                                longitudeFieldController,
+                                longitudeFocusNode,
+                                true,
+                              ),
+                              onSubmitted: (value) {
+                                FocusScope.of(context)
+                                    .requestFocus(descriptionFocusNode);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Указать на карте',
+                      style: Theme.of(context).textTheme.headline6.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    ),
                   ),
-                  SizedBox(
-                    height: 37,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      buildSectionText(context, 'ОПИСАНИЕ'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  TextField(
-                    controller: descriptionFieldController,
-                    focusNode: descriptionFocusNode,
-                    decoration: buildInputDecoration(
-                      descriptionFieldController,
-                      descriptionFocusNode,
-                      false,
-                    ).copyWith(
-                        hintText: 'введите текст',
-                        hintStyle: Theme.of(context).textTheme.headline2),
-                    maxLines: 3,
-                    keyboardType: TextInputType.text,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 37,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    buildSectionText(context, 'ОПИСАНИЕ'),
+                  ],
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextField(
+                  controller: descriptionFieldController,
+                  focusNode: descriptionFocusNode,
+                  decoration: buildInputDecoration(
+                    descriptionFieldController,
+                    descriptionFocusNode,
+                    false,
+                  ).copyWith(
+                      hintText: 'введите текст',
+                      hintStyle: Theme.of(context).textTheme.headline2),
+                  maxLines: 3,
+                  keyboardType: TextInputType.text,
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -259,19 +262,20 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Sight newSight = Sight(
+                        Place newPlace = Place(
+                          id: 809,
                           name: nameFieldController.text,
                           lat: double.parse(latitudeFieldController.text),
-                          lon: double.parse(longitudeFieldController.text),
-                          url: 'empty',
-                          type: 'some type',
-                          details: descriptionFieldController.text,
+                          lng: double.parse(longitudeFieldController.text),
+                          urls: ['https://34travel.me/media/upload/images/2017/september/churches/new/IMG_8596.jpg'],
+                          placeType: 'other',
+                          description: descriptionFieldController.text,
                         );
-                        mocks.add(newSight);
-                        print('${newSight.toString()} added');
+                        placeInteractor.addNewPlace(newPlace);
+                        print('${newPlace.toString()} added');
                       },
                       // onPressed: null,
-                      child: Text('СОЗДАТЬ'),
+                      child: const Text('СОЗДАТЬ'),
                       style: ElevatedButton.styleFrom(
                           primary: Colors.green,
                           shape: RoundedRectangleBorder(
@@ -302,7 +306,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   ) {
     InputDecoration decoration = InputDecoration(
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
         borderSide: BorderSide(
@@ -311,7 +315,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
         ),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
         borderSide: BorderSide(
@@ -349,11 +353,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
       padding: const EdgeInsets.only(right: 16),
       child: GestureDetector(
         onTap: () {
-          // Adding of Image Cards for Sight
-          // setState(() {
-          //   _photoCardsList.add(buildImageCard(UniqueKey()));
-          // });
-
           _showSelectImageSourceDialog();
         },
         child: Container(
@@ -396,7 +395,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
     var result = await showDialog(
       context: context,
       builder: (_) {
-        return SelectImageSourceDialog();
+        return const SelectImageSourceDialog();
       },
     );
   }
@@ -415,14 +414,14 @@ class _AddSightScreenState extends State<AddSightScreen> {
               width: 72,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage(imgEiffel),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 28, maxHeight: 28),
+              constraints: const BoxConstraints(maxWidth: 28, maxHeight: 28),
               child: IconButton(
                 onPressed: () {
                   setState(() {
@@ -452,27 +451,27 @@ class SelectImageSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 0),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 0),
       backgroundColor: Colors.transparent,
-      contentPadding: EdgeInsets.symmetric(horizontal: 0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
       elevation: 0.0,
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width - 32,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
               padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _options("Камера", iconCamera, context),
-                  Divider(),
+                  const Divider(),
                   _options("Фото", iconPhoto, context),
-                  Divider(),
+                  const Divider(),
                   _options("Файл", iconFile, context),
                 ],
               ),
@@ -486,10 +485,10 @@ class SelectImageSourceDialog extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        const BorderRadius.all(Radius.circular(10.0))),
+                        BorderRadius.all(Radius.circular(10.0))),
                 child: Center(
                     child: Text(
                   "ОТМЕНА",

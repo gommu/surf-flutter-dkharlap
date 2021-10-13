@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/repository/network_repository.dart';
+import 'package:places/domain/dio_http.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -11,6 +13,11 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Widget _buildIndicator() {
     List<Widget> children = List.generate(3, (index) {
@@ -78,7 +85,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 104.0,
                     width: 104.0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -86,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
@@ -138,7 +145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 104.0,
                     width: 104.0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text(
@@ -146,7 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
@@ -171,7 +178,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, '/sight-list');
                         },
-                        child: Text('НА СТАРТ'),
+                        child: const Text('НА СТАРТ'),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green,
                             shape: RoundedRectangleBorder(
