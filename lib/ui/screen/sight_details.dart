@@ -21,7 +21,7 @@ class _SightDetailsState extends State<SightDetails> {
     'https://34travel.me/media/upload/images/2018/november/34dstpr/IMG_0249.jpg',
   ];
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPage = 0;
 
   Widget _indicator() {
@@ -43,7 +43,7 @@ class _SightDetailsState extends State<SightDetails> {
         );
       }
     });
-    return Container(
+    return SizedBox(
       height: 8,
       child: Row(
         children: children,
@@ -85,7 +85,7 @@ class _SightDetailsState extends State<SightDetails> {
                         });
                       },
                     ),
-                    Align(
+                    const Align(
                       alignment: Alignment(-0.87, -0.65),
                       child: SizedBox(
                         height: 32,
@@ -140,7 +140,7 @@ class _SightDetailsState extends State<SightDetails> {
                       const SizedBox(
                         height: 24,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 48,
                         width: double.infinity,
                         child: _BuildWaypointButton(),
@@ -152,12 +152,12 @@ class _SightDetailsState extends State<SightDetails> {
                         thickness: 0.8,
                       ),
                       ConstrainedBox(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxHeight: 32,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                          children: const [
                             _PlanButton(),
                             _AddToFavoriteButton(),
                           ],

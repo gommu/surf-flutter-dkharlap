@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/mocks.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 import 'package:places/ui/screen/res/utils.dart';
@@ -16,8 +12,8 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  var _categories = <Map>[];
-  var _startPosition = {'long': 27.55, 'lat': 53.90};
+  final _categories = <Map>[];
+  final _startPosition = {'long': 27.55, 'lat': 53.90};
 
   RangeValues _currentRangeValues = const RangeValues(100, 10000);
 
@@ -110,7 +106,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -176,7 +171,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     ],
                   ),
                 ),
-                if(screenHeight > 800)
+                if (screenHeight > 800)
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: Row(
@@ -231,7 +226,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
           ),
           Expanded(
             child: Align(
-              alignment: screenHeight > 800 ? Alignment.bottomCenter : Alignment.topCenter,
+              alignment: screenHeight > 800
+                  ? Alignment.bottomCenter
+                  : Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 32, 16, 20),
                 child: SizedBox(

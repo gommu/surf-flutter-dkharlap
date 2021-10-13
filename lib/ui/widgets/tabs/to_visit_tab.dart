@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
@@ -13,36 +15,37 @@ class ToVisitTab extends StatefulWidget {
 }
 
 class _ToVisitTabState extends State<ToVisitTab> {
-  List<ToVisitSightCard> toVisitCards;
+  List<ToVisitPlaceCard> toVisitCards;
   bool _willAccept = false;
+  final placeInteractor = PlaceInteractor();
 
   @override
   void initState() {
-    toVisitCards = toVisitSightsMocks
-        .map((e) => ToVisitSightCard(
+    toVisitCards = placeInteractor.getFavoritePlaces()
+        .map((e) => ToVisitPlaceCard(
               key: UniqueKey(),
-              sight: e,
-              removeCard: removeSightToVisitAction,
+              place: e,
+              removeCard: removePlaceToVisitAction,
             ))
         .toList();
 
     super.initState();
   }
 
-  void removeSightToVisitAction(Sight sight) {
-    debugPrint(sight.toString());
+  void removePlaceToVisitAction(Place place) {
+    debugPrint(place.toString());
     setState(() {
-      toVisitCards.removeWhere((element) => element.sightName == sight.name);
-      toVisitSightsMocks.removeWhere((element) => element == sight);
+      toVisitCards.removeWhere((element) => element.place.id == place.id);
+      placeInteractor.removeFromFavorites(place);
     });
   }
 
-  Widget _gestureWrapper(ToVisitSightCard child) {
-    return LongPressDraggable<ToVisitSightCard>(
+  Widget _gestureWrapper(ToVisitPlaceCard child) {
+    return LongPressDraggable<ToVisitPlaceCard>(
       axis: Axis.vertical,
       data: child,
       childWhenDragging: Container(),
-      feedback: Container(
+      feedback: SizedBox(
         child: Opacity(
           child: child,
           opacity: 0.7,
@@ -60,7 +63,7 @@ class _ToVisitTabState extends State<ToVisitTab> {
             key: UniqueKey(),
             direction: DismissDirection.endToStart,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
                   Colors.red,
                   Colors.red,
@@ -101,7 +104,7 @@ class _ToVisitTabState extends State<ToVisitTab> {
               ),
             ),
             onDismissed: (direction) {
-              removeSightToVisitAction(child.sight);
+              removePlaceToVisitAction(child.place);
             },
           ),
         ),
@@ -124,9 +127,9 @@ class _ToVisitTabState extends State<ToVisitTab> {
     );
   }
 
-  DragTarget<ToVisitSightCard> _toVisitDragTarget(int positionIndex) {
+  DragTarget<ToVisitPlaceCard> _toVisitDragTarget(int positionIndex) {
     return DragTarget(
-      builder: (BuildContext context, List<ToVisitSightCard> accepted,
+      builder: (BuildContext context, List<ToVisitPlaceCard> accepted,
           List<dynamic> rejected) {
         if (_willAccept) {
           return Container(
@@ -134,7 +137,7 @@ class _ToVisitTabState extends State<ToVisitTab> {
             height: 200,
             decoration: BoxDecoration(
               color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.all(Radius.circular(16)),
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
           );
         } else {
@@ -142,13 +145,12 @@ class _ToVisitTabState extends State<ToVisitTab> {
         }
       },
       onWillAccept: (data) {
-        print(data);
         return true;
       },
       onAccept: (data) {
         setState(() {
           int currentIndex = toVisitCards.indexOf(data);
-          ToVisitSightCard draggedCard = toVisitCards.removeAt(currentIndex);
+          ToVisitPlaceCard draggedCard = toVisitCards.removeAt(currentIndex);
           toVisitCards.insert(positionIndex - 1, draggedCard);
           Sight sight = toVisitSightsMocks.removeAt(currentIndex);
           toVisitSightsMocks.insert(positionIndex - 1, sight);
@@ -163,17 +165,17 @@ class _ToVisitTabState extends State<ToVisitTab> {
     if (toVisitCards != null && toVisitCards.length > 0) {
       int index = 1;
       List<Widget> children = [];
-      toVisitCards.forEach((element) {
+      for (var element in toVisitCards) {
         children.add(_gestureWrapper(element));
         children.add(_toVisitDragTarget(index++));
-      });
+      }
 
       return ListView.builder(
         itemCount: children.length,
         itemBuilder: (_, index) {
           return children[index];
         },
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(16.0),
       );
     } else {
@@ -187,7 +189,7 @@ class _ToVisitTabState extends State<ToVisitTab> {
               height: 64.0,
               width: 64.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             Text(
@@ -197,8 +199,8 @@ class _ToVisitTabState extends State<ToVisitTab> {
                     fontSize: 18,
                   ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(53, 8, 53, 0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(53, 8, 53, 0),
               child: Text(
                 'Отмечайте понравившиеся места и они появиятся здесь.',
                 textAlign: TextAlign.center,

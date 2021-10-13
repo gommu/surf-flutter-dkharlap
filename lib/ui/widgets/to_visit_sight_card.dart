@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 
-class ToVisitSightCard extends StatefulWidget {
-  final Sight sight;
+class ToVisitPlaceCard extends StatefulWidget {
+  final Place place;
   final Function removeCard;
 
-  ToVisitSightCard({Key key, this.sight, this.removeCard}) : super(key: key);
+  ToVisitPlaceCard({Key key, this.place, this.removeCard}) : super(key: key);
 
-  String get sightName => sight.name;
+  String get placeName => place.name;
 
   @override
-  _ToVisitSightCardState createState() => _ToVisitSightCardState();
+  _ToVisitPlaceCardState createState() => _ToVisitPlaceCardState();
 }
 
-class _ToVisitSightCardState extends State<ToVisitSightCard> {
+class _ToVisitPlaceCardState extends State<ToVisitPlaceCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xffF5F5F5),
+        color: const Color(0xffF5F5F5),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Stack(
@@ -40,7 +40,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                 onTap: () {},
               ),
             ),
@@ -53,7 +53,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.sight.type.toLowerCase(),
+                    widget.place.placeType.toLowerCase(),
                     style: textBold14PrimaryWhite,
                   ),
                   _availableActions(),
@@ -86,11 +86,11 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
             ),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: const Radius.circular(16),
-                topRight: const Radius.circular(16),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
               ),
               child: Image.network(
-                widget.sight.url,
+                widget.place.urls[0],
                 fit: BoxFit.cover,
                 width: double.infinity,
                 loadingBuilder: (BuildContext context, Widget child,
@@ -127,7 +127,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
               maxWidth: 360,
             ),
             child: Text(
-              widget.sight.name,
+              widget.place.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline6,
@@ -174,7 +174,7 @@ class _ToVisitSightCardState extends State<ToVisitSightCard> {
           const SizedBox(
             width: 16,
           ),
-          _actionButton(iconClose, () => widget.removeCard(widget.sight)),
+          _actionButton(iconClose, () => widget.removeCard(widget.place)),
         ],
       ),
     );

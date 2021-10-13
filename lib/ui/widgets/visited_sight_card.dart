@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/assets_uri.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 
-class VisitedSightCard extends StatefulWidget {
-  final Sight sight;
+class VisitedPlaceCard extends StatefulWidget {
+  final Place place;
   final Function removeCard;
-  VisitedSightCard({Key key, this.sight, this.removeCard}) : super(key: key);
+  VisitedPlaceCard({Key key, this.place, this.removeCard}) : super(key: key);
 
-  String get sightName => sight.name;
+  String get placeName => place.name;
 
   @override
-  _VisitedSightCardState createState() => _VisitedSightCardState();
+  _VisitedPlaceCardState createState() => _VisitedPlaceCardState();
 }
 
-class _VisitedSightCardState extends State<VisitedSightCard> {
+class _VisitedPlaceCardState extends State<VisitedPlaceCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +52,7 @@ class _VisitedSightCardState extends State<VisitedSightCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.sight.type.toLowerCase(),
+                    widget.place.placeType.toLowerCase(),
                     style: textBold14PrimaryWhite,
                   ),
                   _availableActions(),
@@ -66,35 +66,33 @@ class _VisitedSightCardState extends State<VisitedSightCard> {
   }
 
   Widget photoSection(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 96,
       child: Stack(
         children: [
-          Container(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: const Radius.circular(16),
-                topRight: const Radius.circular(16),
-              ),
-              child: Image.network(
-                widget.sight.url,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes
-                          : null,
-                    ),
-                  );
-                },
-              ),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            child: Image.network(
+              widget.place.urls[0],
+              fit: BoxFit.cover,
+              width: double.infinity,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                        : null,
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -110,11 +108,11 @@ class _VisitedSightCardState extends State<VisitedSightCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 360,
             ),
             child: Text(
-              widget.sight.name,
+              widget.place.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline6,
@@ -127,7 +125,7 @@ class _VisitedSightCardState extends State<VisitedSightCard> {
               style: textRegular14Primary,
             ),
           ),
-          SizedBox(),
+          const SizedBox(),
           Text(
             'закрыто до 09:00',
             style: Theme.of(context).textTheme.bodyText2,
@@ -138,38 +136,34 @@ class _VisitedSightCardState extends State<VisitedSightCard> {
   }
 
   Widget _availableActions() {
-    return Container(
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-          height: 24,
-        ),
-        child: Row(
-          children: [
-            _actionButton(iconShare, () {
-              debugPrint('Button share pressed');
-            }),
-            SizedBox(
-              width: 16,
-            ),
-            _actionButton(iconClose, () => widget.removeCard(widget.sight)),
-          ],
-        ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(
+        height: 24,
+      ),
+      child: Row(
+        children: [
+          _actionButton(iconShare, () {
+            debugPrint('Button share pressed');
+          }),
+          const SizedBox(
+            width: 16,
+          ),
+          _actionButton(iconClose, () => widget.removeCard(widget.place)),
+        ],
       ),
     );
   }
 
   Widget _actionButton(String assetPath, Function handler) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 24),
+      constraints: const BoxConstraints(maxWidth: 24),
       child: ElevatedButton(
         onPressed: handler,
-        child: Container(
-          child: SvgPicture.asset(
-            assetPath,
-            color: Colors.white,
-            height: 24.0,
-            width: 24.0,
-          ),
+        child: SvgPicture.asset(
+          assetPath,
+          color: Colors.white,
+          height: 24.0,
+          width: 24.0,
         ),
         style: cardActionStyle,
       ),

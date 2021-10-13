@@ -54,7 +54,7 @@ class PlaceRepository {
     }
   }
 
-  Future<void> getDeletePlace(int id) async {
+  Future<void> deletePlace(int id) async {
     final response = await dio.delete('/place/$id');
     if (response.statusCode == 200) {
       return;

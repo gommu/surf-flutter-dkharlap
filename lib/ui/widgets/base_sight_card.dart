@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/model.dart';
 import 'package:places/ui/res/text_styles.dart';
 import 'package:places/ui/screen/res/button_styles.dart';
 import 'package:places/ui/widgets/bottom_sheets/sight_detail_bottom_sheet.dart';
 
-import '../../mocks.dart';
 
-class BaseSightCard extends StatelessWidget {
-  final Sight sight;
+class BasePlaceCard extends StatelessWidget {
+  final Place place;
   final _PlacePhotoMain photoWidget;
   final Widget descriptionWidget;
 
-  BaseSightCard(this.sight)
-      : photoWidget = _PlacePhotoMain(sight: sight),
-        descriptionWidget = _PlaceDescriptionMain(sight: sight);
+  BasePlaceCard(this.place)
+      : photoWidget = _PlacePhotoMain(place: place),
+        descriptionWidget = _PlaceDescriptionMain(place: place);
 
-  BaseSightCard.toVisit(this.sight)
-      : photoWidget = _ToVisitPlacePhoto(sight: sight),
-        descriptionWidget = _ToVisitPlaceDescription(sight: sight);
+  BasePlaceCard.toVisit(this.place)
+      : photoWidget = _ToVisitPlacePhoto(place: place),
+        descriptionWidget = _ToVisitPlaceDescription(place: place);
 
-  BaseSightCard.visited(this.sight)
-      : photoWidget = _VisitedPlacePhoto(sight: sight),
-        descriptionWidget = _VisitedPlaceDescription(sight: sight);
+  BasePlaceCard.visited(this.place)
+      : photoWidget = _VisitedPlacePhoto(place: place),
+        descriptionWidget = _VisitedPlaceDescription(place: place);
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +48,12 @@ class BaseSightCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                 onTap: () {
-                  // Nav to Sight details
-                  // Navigator.pushNamed(context, '/sight-details');
-                  // Open sight detail as bottom sheet
                   showModalBottomSheet(
                     context: context,
                     builder: (_) {
-                      return SightDetailsBottomSheet(mocks[0]);
+                      return PlaceDetailsBottomSheet(place);
                     },
+
                     isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
@@ -73,7 +71,7 @@ class BaseSightCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    sight.type.toLowerCase(),
+                    place.placeType.toLowerCase(),
                     style: textBold14PrimaryWhite,
                   ),
                   photoWidget.availableActions(),
@@ -90,10 +88,10 @@ class BaseSightCard extends StatelessWidget {
 class _PlaceDescriptionMain extends StatelessWidget {
   const _PlaceDescriptionMain({
     Key key,
-    @required this.sight,
+    @required this.place,
   }) : super(key: key);
 
-  final Sight sight;
+  final Place place;
 
   Widget descriptionSection(BuildContext context) {
     return Padding(
@@ -108,15 +106,16 @@ class _PlaceDescriptionMain extends StatelessWidget {
               maxWidth: 360,
             ),
             child: Text(
-              sight.name,
+              place.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Text(
-            'краткое описание',
+            place.description,
             style: Theme.of(context).textTheme.subtitle1,
+            maxLines: 1,
           ),
         ],
       ),
@@ -141,10 +140,10 @@ class _PlaceDescriptionMain extends StatelessWidget {
 class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
   const _ToVisitPlaceDescription({
     Key key,
-    @required this.sight,
-  }) : super(sight: sight, key: key);
+    @required this.place,
+  }) : super(place: place, key: key);
 
-  final Sight sight;
+  final Place place;
 
   @override
   Widget descriptionSection(BuildContext context) {
@@ -159,7 +158,7 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
               maxWidth: 360,
             ),
             child: Text(
-              sight.name,
+              place.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline6,
@@ -186,10 +185,10 @@ class _ToVisitPlaceDescription extends _PlaceDescriptionMain {
 class _VisitedPlaceDescription extends _PlaceDescriptionMain {
   const _VisitedPlaceDescription({
     Key key,
-    @required this.sight,
-  }) : super(sight: sight, key: key);
+    @required this.place,
+  }) : super(place: place, key: key);
 
-  final Sight sight;
+  final Place place;
 
   @override
   Widget descriptionSection(BuildContext context) {
@@ -204,7 +203,7 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
               maxWidth: 360,
             ),
             child: Text(
-              sight.name,
+              place.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline6,
@@ -231,10 +230,11 @@ class _VisitedPlaceDescription extends _PlaceDescriptionMain {
 class _PlacePhotoMain extends StatelessWidget {
   _PlacePhotoMain({
     Key key,
-    @required this.sight,
+    @required this.place,
   }) : super(key: key);
 
-  final Sight sight;
+  final Place place;
+  final placeInteractor = PlaceInteractor();
 
   Widget _actionButton(String assetPath, Function handler) {
     return ConstrainedBox(
@@ -255,18 +255,16 @@ class _PlacePhotoMain extends StatelessWidget {
   }
 
   Widget availableActions() {
-    return Container(
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-          height: 24,
-        ),
-        child: Row(
-          children: [
-            _actionButton('res/images/icons/Heart.svg', () {
-              print('Button heart pressed');
-            }),
-          ],
-        ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(
+        height: 24,
+      ),
+      child: Row(
+        children: [
+          _actionButton('res/images/icons/Heart.svg', () {
+            placeInteractor.addToFavorites(place);
+          }),
+        ],
       ),
     );
   }
@@ -284,7 +282,7 @@ class _PlacePhotoMain extends StatelessWidget {
                 topRight: const Radius.circular(16),
               ),
               child: Image.network(
-                sight.url,
+                place.urls[0],
                 fit: BoxFit.cover,
                 width: double.infinity,
                 loadingBuilder: (BuildContext context, Widget child,
@@ -313,31 +311,29 @@ class _PlacePhotoMain extends StatelessWidget {
 class _ToVisitPlacePhoto extends _PlacePhotoMain {
   _ToVisitPlacePhoto({
     Key key,
-    @required this.sight,
-  }) : super(sight: sight, key: key);
+    @required this.place,
+  }) : super(place: place, key: key);
 
-  final Sight sight;
+  final Place place;
 
   @override
   Widget availableActions() {
-    return Container(
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-          height: 24,
-        ),
-        child: Row(
-          children: [
-            _actionButton('res/images/icons/Calendar.svg', () {
-              print('Button calendar pressed');
-            }),
-            SizedBox(
-              width: 16,
-            ),
-            _actionButton('res/images/icons/Close.svg', () {
-              print('Button close pressed');
-            }),
-          ],
-        ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(
+        height: 24,
+      ),
+      child: Row(
+        children: [
+          _actionButton('res/images/icons/Calendar.svg', () {
+            print('Button calendar pressed');
+          }),
+          const SizedBox(
+            width: 16,
+          ),
+          _actionButton('res/images/icons/Close.svg', () {
+            print('Button close pressed');
+          }),
+        ],
       ),
     );
   }
@@ -346,31 +342,29 @@ class _ToVisitPlacePhoto extends _PlacePhotoMain {
 class _VisitedPlacePhoto extends _PlacePhotoMain {
   _VisitedPlacePhoto({
     Key key,
-    @required this.sight,
-  }) : super(sight: sight, key: key);
+    @required this.place,
+  }) : super(place: place, key: key);
 
-  final Sight sight;
+  final Place place;
 
   @override
   Widget availableActions() {
-    return Container(
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-          height: 24,
-        ),
-        child: Row(
-          children: [
-            _actionButton('res/images/icons/Share.svg', () {
-              print('Button share pressed');
-            }),
-            SizedBox(
-              width: 16,
-            ),
-            _actionButton('res/images/icons/Close.svg', () {
-              print('Button close pressed');
-            }),
-          ],
-        ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.tightFor(
+        height: 24,
+      ),
+      child: Row(
+        children: [
+          _actionButton('res/images/icons/Share.svg', () {
+            print('Button share pressed');
+          }),
+          const SizedBox(
+            width: 16,
+          ),
+          _actionButton('res/images/icons/Close.svg', () {
+            print('Button close pressed');
+          }),
+        ],
       ),
     );
   }

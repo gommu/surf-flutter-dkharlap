@@ -4,7 +4,7 @@ class VisitingTabBar extends StatelessWidget implements PreferredSizeWidget {
   final TabController _tabController;
 
   VisitingTabBar(this._tabController, {Key key})
-      : preferredSize = Size.fromHeight(40.0),
+      : preferredSize = const Size.fromHeight(40.0),
         super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class VisitingTabBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(
               text: 'Хочу посетить',
             ),
